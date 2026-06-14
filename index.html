@@ -21,8 +21,6 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{background:var(--bg);color:var(--text1);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;overscroll-behavior:none}
-
-/* TOP BAR */
 .topbar{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:0 16px;display:flex;align-items:center;gap:12px;height:54px}
 .topbar-logo{width:32px;height:32px;background:var(--purple-bg);border:1px solid var(--purple);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .topbar-logo svg{width:18px;height:18px;stroke:var(--purple);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -31,182 +29,110 @@ html,body{background:var(--bg);color:var(--text1);font-family:-apple-system,Blin
 .live-pill{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--green);border:1px solid var(--green-dim);background:var(--green-bg);padding:3px 9px;border-radius:20px}
 .live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-
-/* TABS */
 .tabs-wrap{background:var(--bg);border-bottom:1px solid var(--border);padding:0 12px;overflow-x:auto;scrollbar-width:none}
 .tabs-wrap::-webkit-scrollbar{display:none}
 .tabs{display:flex;gap:2px;min-width:max-content}
 .tab{padding:0 14px;height:44px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--text3);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px;transition:color .15s,border-color .15s}
 .tab svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.tab:hover{color:var(--text2)}
-.tab.active{color:var(--purple);border-bottom-color:var(--purple)}
-
-/* PANELS */
-.panel{display:none;padding:14px}
-.panel.active{display:block}
-
-/* CHART TOOLBAR */
-.chart-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
-.coin-input{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text1);font-size:14px;font-family:inherit;padding:8px 12px;width:120px;text-transform:uppercase}
+.tab:hover{color:var(--text2)}.tab.active{color:var(--purple);border-bottom-color:var(--purple)}
+.panel{display:none;padding:14px}.panel.active{display:block}
+.chart-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.coin-input{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text1);font-size:14px;font-family:inherit;padding:8px 12px;width:110px;text-transform:uppercase}
 .coin-input:focus{outline:none;border-color:var(--purple)}
 .tf-btn{padding:6px 11px;border:1px solid var(--border);border-radius:var(--radius);background:transparent;color:var(--text3);font-size:12px;cursor:pointer;font-family:inherit;transition:all .15s}
 .tf-btn.active{background:var(--bg3);color:var(--purple);border-color:var(--purple)}
 .load-btn{padding:8px 16px;border:1px solid var(--purple);border-radius:var(--radius);background:var(--purple-bg);color:var(--purple);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;margin-left:auto}
-.load-btn:hover{background:#22265a}
-.load-btn:active{transform:scale(.97)}
+.load-btn:hover{background:#22265a}.load-btn:active{transform:scale(.97)}
 .load-btn svg{width:14px;height:14px;stroke:var(--purple);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-
-/* STATUS */
-.status-bar{display:flex;align-items:center;gap:8px;margin-bottom:10px;min-height:22px}
+.status-bar{display:flex;align-items:center;gap:8px;margin-bottom:8px;min-height:22px}
 .status-pill{font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500}
 .status-pill.loading{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple)}
 .status-pill.ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green-dim)}
 .status-pill.err{background:var(--red-bg);color:var(--red);border:1px solid var(--red-dim)}
 .status-text{font-size:11px;color:var(--text3)}
-
-/* CANVAS CHART */
-.chart-box{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;background:#0a0d14;position:relative;margin-bottom:8px}
+.chart-box{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;background:#0a0d14;position:relative;margin-bottom:6px}
 canvas{display:block;width:100%}
-.chart-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#0a0d14cc;z-index:5}
+.chart-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#0a0d14dd;z-index:5}
 .chart-overlay-text{color:var(--purple);font-size:13px;font-weight:500}
-
-/* PATTERN PANEL */
-.pattern-panel{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:10px}
+.pattern-panel{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px;margin-bottom:10px}
 .pat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px}
-.pat-card.bull{border-color:var(--green-dim)}
-.pat-card.bear{border-color:var(--red-dim)}
-.pat-card.info{border-color:var(--border2)}
+.pat-card.bull{border-color:var(--green-dim)}.pat-card.bear{border-color:var(--red-dim)}.pat-card.info{border-color:var(--border2)}
 .pat-title{font-size:12px;font-weight:600;margin-bottom:6px}
-.pat-card.bull .pat-title{color:var(--green)}
-.pat-card.bear .pat-title{color:var(--red)}
-.pat-card.info .pat-title{color:var(--text2)}
+.pat-card.bull .pat-title{color:var(--green)}.pat-card.bear .pat-title{color:var(--red)}.pat-card.info .pat-title{color:var(--text2)}
 .pat-row{display:flex;justify-content:space-between;font-size:11px;padding:2px 0;border-bottom:1px solid var(--border)}
 .pat-row:last-child{border:none}
 .pk{color:var(--text3)}.pv{color:var(--text1);font-weight:500}
 .pv.g{color:var(--green)}.pv.r{color:var(--red)}.pv.a{color:var(--amber)}
-
-/* LEGEND */
-.legend{display:flex;gap:12px;flex-wrap:wrap;padding:8px 0;margin-bottom:12px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;padding:6px 0;margin-bottom:10px}
 .leg{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text3)}
 .ld{width:18px;height:2px;border-radius:1px}
-
-/* ASK CLAUDE */
-.ask-claude{width:100%;padding:12px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text1);font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:border-color .15s,background .15s;margin-top:4px}
+.ask-claude{width:100%;padding:12px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text1);font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:border-color .15s,background .15s}
 .ask-claude:hover{border-color:var(--purple);background:var(--purple-bg);color:var(--purple)}
 .ask-claude svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-
-/* WATCHLIST */
 .section-label{font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--text3);text-transform:uppercase;margin-bottom:8px}
 .coins-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(85px,1fr));gap:6px;margin-bottom:14px}
 .coin-chip{padding:8px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;text-align:left;transition:border-color .15s}
-.coin-chip:hover{border-color:var(--border2)}
-.coin-chip:active{transform:scale(.97)}
+.coin-chip:hover{border-color:var(--border2)}.coin-chip:active{transform:scale(.97)}
 .coin-chip .sym{font-size:12px;font-weight:600;color:var(--text1)}
 .coin-chip .name{font-size:10px;color:var(--text3);margin-top:2px}
-
-/* TRADE IDEAS */
 .actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
 @media(min-width:480px){.actions-grid{grid-template-columns:repeat(3,1fr)}}
 .action-btn{padding:12px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;text-align:left;display:flex;align-items:flex-start;gap:8px;transition:border-color .15s}
-.action-btn:hover{border-color:var(--border2)}
-.action-btn:active{transform:scale(.97)}
+.action-btn:hover{border-color:var(--border2)}.action-btn:active{transform:scale(.97)}
 .action-btn svg{width:16px;height:16px;stroke:var(--purple);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:1px}
-.abt{font-size:12px;font-weight:600;color:var(--text1)}
-.abs{font-size:10px;color:var(--text3);margin-top:2px}
-
-/* TA GAUGE (TradingView widget) */
+.abt{font-size:12px;font-weight:600;color:var(--text1)}.abs{font-size:10px;color:var(--text3);margin-top:2px}
 .tv-box{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;background:#131722;margin-bottom:10px}
-
-/* DIVIDER */
 .divider{height:1px;background:var(--border);margin:14px 0}
-
-/* INFO */
 .info-note{padding:10px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);font-size:11px;color:var(--text3);line-height:1.6;display:flex;gap:8px}
 .info-note svg{width:14px;height:14px;stroke:var(--text3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:1px}
-
-/* MOBILE NAV */
 .bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);padding:8px 0 max(8px,env(safe-area-inset-bottom));z-index:100}
 @media(max-width:600px){.bottom-nav{display:flex}.tabs-wrap{display:none}body{padding-bottom:72px}}
 .bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;color:var(--text3);font-size:10px;font-family:inherit;padding:4px 0;transition:color .15s}
 .bnav-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .bnav-btn.active{color:var(--purple)}
-
-/* HEIGHTS */
-.h-chart{height:400px}
-.h-vol{height:55px}
-.h-ta{height:440px}
-.h-scan{height:500px}
-.h-heat{height:500px}
+.h-chart{height:420px}.h-vol{height:55px}.h-ta{height:440px}.h-scan{height:500px}.h-heat{height:500px}
 @media(max-width:480px){.h-chart{height:300px}.h-vol{height:44px}.h-ta{height:380px}.h-scan{height:440px}.h-heat{height:440px}}
 </style>
 </head>
 <body>
 
 <header class="topbar">
-  <div class="topbar-logo">
-    <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-  </div>
-  <div>
-    <div class="topbar-title">TA Terminal</div>
-    <div class="topbar-sub">Live charts · Pattern detection · Halal screened</div>
-  </div>
+  <div class="topbar-logo"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+  <div><div class="topbar-title">TA Terminal</div><div class="topbar-sub">Live charts · Pattern detection · Halal screened</div></div>
   <div class="live-pill"><div class="live-dot"></div>LIVE</div>
 </header>
 
 <div class="tabs-wrap">
   <div class="tabs">
-    <button class="tab active" onclick="switchTab('chart',this)" id="dt-chart">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 16l3-4 3 3 3-6"/></svg>Chart
-    </button>
-    <button class="tab" onclick="switchTab('ta',this)" id="dt-ta">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>TA Gauge
-    </button>
-    <button class="tab" onclick="switchTab('scan',this)" id="dt-scan">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Screener
-    </button>
-    <button class="tab" onclick="switchTab('heat',this)" id="dt-heat">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Heatmap
-    </button>
-    <button class="tab" onclick="switchTab('ideas',this)" id="dt-ideas">
-      <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.6-1.4 4.9-3.5 6.2V17a1 1 0 0 1-1 1H9.5a1 1 0 0 1-1-1v-1.8C6.4 13.9 5 11.6 5 9a7 7 0 0 1 7-7z"/><path d="M9.5 21h5"/></svg>Ideas
-    </button>
+    <button class="tab active" onclick="switchTab('chart',this)" id="dt-chart"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 16l3-4 3 3 3-6"/></svg>Chart</button>
+    <button class="tab" onclick="switchTab('ta',this)" id="dt-ta"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>TA Gauge</button>
+    <button class="tab" onclick="switchTab('scan',this)" id="dt-scan"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Screener</button>
+    <button class="tab" onclick="switchTab('heat',this)" id="dt-heat"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Heatmap</button>
+    <button class="tab" onclick="switchTab('ideas',this)" id="dt-ideas"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.6-1.4 4.9-3.5 6.2V17a1 1 0 0 1-1 1H9.5a1 1 0 0 1-1-1v-1.8C6.4 13.9 5 11.6 5 9a7 7 0 0 1 7-7z"/><path d="M9.5 21h5"/></svg>Ideas</button>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     CHART PANEL — Custom canvas with Binance data
-═══════════════════════════════════════════════ -->
+<!-- CHART PANEL -->
 <div class="panel active" id="panel-chart">
-
   <div class="section-label">Halal watchlist — tap to load</div>
   <div class="coins-grid" id="watchlistGrid"></div>
-
   <div class="chart-toolbar">
     <input class="coin-input" id="coinInput" type="text" value="BTC" placeholder="BTC, ETH…" spellcheck="false" autocomplete="off"/>
     <button class="tf-btn active" data-tf="4h" onclick="setTf(this)">4H</button>
     <button class="tf-btn" data-tf="1h" onclick="setTf(this)">1H</button>
     <button class="tf-btn" data-tf="15m" onclick="setTf(this)">15m</button>
     <button class="tf-btn" data-tf="1d" onclick="setTf(this)">1D</button>
-    <button class="load-btn" onclick="loadChart()">
-      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>Load
-    </button>
+    <button class="load-btn" onclick="loadChart()"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>Load</button>
   </div>
-
   <div class="status-bar">
     <span class="status-pill loading" id="statusPill">Loading…</span>
-    <span class="status-text" id="statusText">Fetching candles from Binance</span>
+    <span class="status-text" id="statusText"></span>
   </div>
-
   <div class="chart-box h-chart">
     <canvas id="mainCanvas"></canvas>
-    <div class="chart-overlay" id="chartOverlay">
-      <span class="chart-overlay-text">Loading chart…</span>
-    </div>
+    <div class="chart-overlay" id="chartOverlay"><span class="chart-overlay-text">Loading chart…</span></div>
   </div>
-  <div class="chart-box h-vol" style="margin-bottom:10px">
-    <canvas id="volCanvas"></canvas>
-  </div>
-
+  <div class="chart-box h-vol" style="margin-bottom:10px"><canvas id="volCanvas"></canvas></div>
   <div class="legend">
     <div class="leg"><div class="ld" style="background:#818cf8"></div>EMA 20</div>
     <div class="leg"><div class="ld" style="background:#f59e0b"></div>EMA 50</div>
@@ -214,61 +140,43 @@ canvas{display:block;width:100%}
     <div class="leg"><div class="ld" style="border-top:2px dashed #ef4444;height:0;width:18px"></div>Resistance</div>
     <div class="leg"><div class="ld" style="background:#22c55e33;height:10px;border:1px solid #22c55e;border-radius:2px;width:18px"></div>Bullish</div>
     <div class="leg"><div class="ld" style="background:#ef444433;height:10px;border:1px solid #ef4444;border-radius:2px;width:18px"></div>Bearish</div>
+    <div class="leg"><div class="ld" style="background:#f59e0b33;height:10px;border:1px solid #f59e0b;border-radius:2px;width:18px"></div>Neutral</div>
   </div>
-
-  <div class="pattern-panel" id="patternPanel">
-    <div class="pat-card info"><div class="pat-title">Patterns</div><div class="pat-row"><span class="pk">Status</span><span class="pv">Loading…</span></div></div>
-  </div>
-
+  <div class="pattern-panel" id="patternPanel"><div class="pat-card info"><div class="pat-title">Patterns</div><div class="pat-row"><span class="pk">Status</span><span class="pv">Loading…</span></div></div></div>
   <a class="ask-claude" id="chartAskBtn" href="https://claude.ai/new" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    Ask Claude for deep TA on this chart
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Ask Claude for deep TA on this chart
   </a>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     TA GAUGE PANEL
-═══════════════════════════════════════════════ -->
+<!-- TA GAUGE -->
 <div class="panel" id="panel-ta">
   <div class="chart-toolbar">
-    <input class="coin-input" id="taInput" type="text" value="BTC" placeholder="BTC, ETH…" spellcheck="false"/>
+    <input class="coin-input" id="taInput" type="text" value="BTC" spellcheck="false"/>
     <select style="padding:7px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-size:12px;font-family:inherit" id="taTfSel">
       <option value="1m">1m</option><option value="5m">5m</option><option value="15m">15m</option>
-      <option value="1h">1H</option><option value="4h" selected>4H</option>
-      <option value="1D">1D</option><option value="1W">1W</option>
+      <option value="1h">1H</option><option value="4h" selected>4H</option><option value="1D">1D</option><option value="1W">1W</option>
     </select>
-    <button class="load-btn" onclick="loadTAGauge()">
-      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>Load
-    </button>
+    <button class="load-btn" onclick="loadTAGauge()"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>Load</button>
   </div>
   <div class="tv-box h-ta" id="taBox"><div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px">Tap Load to show TA gauge</div></div>
-  <a class="ask-claude" id="taAskBtn" href="https://claude.ai/new" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    Ask Claude to interpret this TA signal
-  </a>
+  <a class="ask-claude" id="taAskBtn" href="https://claude.ai/new" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Ask Claude to interpret this TA signal</a>
 </div>
 
 <!-- SCREENER -->
 <div class="panel" id="panel-scan">
   <div class="tv-box h-scan" id="scanBox"><div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px">Loading screener…</div></div>
-  <a class="ask-claude" href="https://claude.ai/new?q=Scan+the+top+200+crypto+coins+excluding+haram+coins+%28interest%2C+lending%2C+gambling+protocols%29.+Give+me+3-5+of+the+strongest+technical+setups+today+with+entry%2C+stop+loss%2C+target+and+R%3AR.+Pure+TA+only." target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    Ask Claude for halal trade ideas from this scan
-  </a>
+  <a class="ask-claude" href="https://claude.ai/new?q=Scan+the+top+200+crypto+coins+excluding+haram+coins.+Give+me+3-5+strongest+technical+setups+today+with+entry%2C+stop+loss%2C+target+and+R%3AR.+Pure+TA+only." target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Ask Claude for halal trade ideas from this scan</a>
 </div>
 
 <!-- HEATMAP -->
 <div class="panel" id="panel-heat">
   <div class="tv-box h-heat" id="heatBox"><div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px">Loading heatmap…</div></div>
-  <a class="ask-claude" href="https://claude.ai/new?q=I+am+looking+at+the+crypto+market+heatmap.+Which+halal+coins+are+showing+the+most+strength+right+now+from+a+TA+perspective%3F+Exclude+haram+coins+%28lending%2C+interest%2C+gambling%29.+Give+me+2-3+coins+worth+a+deeper+TA+analysis." target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    Ask Claude which movers are worth a TA deep dive
-  </a>
+  <a class="ask-claude" href="https://claude.ai/new?q=Looking+at+the+crypto+heatmap.+Which+halal+coins+show+the+most+strength+from+a+TA+perspective%3F+Exclude+haram+coins.+Give+me+2-3+worth+a+deeper+TA+analysis." target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Ask Claude which movers are worth a TA deep dive</a>
 </div>
 
-<!-- TRADE IDEAS -->
+<!-- IDEAS -->
 <div class="panel" id="panel-ideas">
-  <div class="section-label">Quick analysis — tap to ask Claude</div>
+  <div class="section-label">Quick analysis</div>
   <div class="actions-grid">
     <button class="action-btn" onclick="openIdea('daily')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div><div class="abt">Daily scan</div><div class="abs">Top setups today</div></div></button>
     <button class="action-btn" onclick="openIdea('weekly')"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><div><div class="abt">Weekly outlook</div><div class="abs">Swing trades</div></div></button>
@@ -280,7 +188,7 @@ canvas{display:block;width:100%}
   <div class="divider"></div>
   <div class="section-label">Custom coin analysis</div>
   <div class="chart-toolbar" style="margin-bottom:10px">
-    <input class="coin-input" id="ideaCoin" type="text" placeholder="SOL, AVAX, LINK…" spellcheck="false"/>
+    <input class="coin-input" id="ideaCoin" type="text" placeholder="SOL, AVAX…" spellcheck="false"/>
     <select style="padding:7px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-size:12px;font-family:inherit" id="ideaTf">
       <option value="15m">15m</option><option value="1H">1H</option><option value="4H" selected>4H</option><option value="Daily">Daily</option><option value="Weekly">Weekly</option>
     </select>
@@ -289,13 +197,9 @@ canvas{display:block;width:100%}
     <button class="action-btn" onclick="openIdea('deep')"><svg viewBox="0 0 24 24"><path d="M2 20h20M5 20V10l7-7 7 7v10"/></svg><div><div class="abt">Deep TA</div><div class="abs">Full breakdown</div></div></button>
     <button class="action-btn" onclick="openIdea('entry')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><div><div class="abt">Entry setup</div><div class="abs">Entry / SL / TP</div></div></button>
   </div>
-  <div class="info-note">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
-    Pure TA only — market structure, S&amp;R, EMAs, RSI, MACD, volume, patterns. No news or fundamentals. Haram coins excluded from all scans.
-  </div>
+  <div class="info-note"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>Pure TA only — market structure, S&amp;R, EMAs, RSI, MACD, volume, patterns. No news or fundamentals. Haram coins excluded from all scans.</div>
 </div>
 
-<!-- MOBILE NAV -->
 <nav class="bottom-nav">
   <button class="bnav-btn active" onclick="switchTab('chart',this)" data-panel="chart"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 16l3-4 3 3 3-6"/></svg>Chart</button>
   <button class="bnav-btn" onclick="switchTab('ta',this)" data-panel="ta"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>TA</button>
@@ -305,15 +209,12 @@ canvas{display:block;width:100%}
 </nav>
 
 <script>
-// ═══════════════════════════════════════════════════════
-//  CONFIG
-// ═══════════════════════════════════════════════════════
-var CLAUDE = 'https://claude.ai/new';
-var currentTf = '4h';
-var candles = [];
-var scanLoaded = false, heatLoaded = false, taLoaded = false;
+var CLAUDE='https://claude.ai/new';
+var currentTf='4h';
+var candles=[];
+var scanLoaded=false,heatLoaded=false,taLoaded=false;
 
-var HALAL = [
+var HALAL=[
   {sym:'BTC',name:'Bitcoin'},{sym:'ETH',name:'Ethereum'},{sym:'SOL',name:'Solana'},
   {sym:'AVAX',name:'Avalanche'},{sym:'LINK',name:'Chainlink'},{sym:'DOT',name:'Polkadot'},
   {sym:'ADA',name:'Cardano'},{sym:'SUI',name:'Sui'},{sym:'INJ',name:'Injective'},
@@ -323,622 +224,862 @@ var HALAL = [
   {sym:'RNDR',name:'Render'},{sym:'TAO',name:'Bittensor'},{sym:'FET',name:'Fetch.AI'}
 ];
 
-var IDEA_PROMPTS = {
-  daily: 'Scan the top 100-200 crypto coins by market cap today — excluding all haram coins (interest protocols, lending platforms like AAVE/Compound, gambling dApps). Give me your top 3-5 trade setups today using only technical analysis. For each coin: current trend (HH/HL or LH/LL), key S&R levels, setup type (breakout/retest/bounce/reversal), entry price, stop loss, take profit, and R:R ratio.',
-  weekly: 'Do a weekly crypto market analysis for swing trades. Check the top 100-200 coins (excluding haram coins). What is the dominant weekly trend? Where is Bitcoin on the weekly? Give me 3 swing trade ideas on the weekly timeframe with TA — trend, key levels, entry, SL, TP, and R:R. Pure technical analysis only.',
-  monthly: 'Give me a monthly macro crypto market analysis. What is the overall market structure on the monthly timeframe? Where is Bitcoin in its macro cycle? Give me 2-3 position trade ideas with full TA — only halal coins, no interest, lending, or gambling protocols.',
-  btcd: 'Analyse Bitcoin dominance (BTC.D) right now using technical analysis. Is dominance trending up or down? What does this mean for altcoins? Should I be in BTC or rotating to alts? Give me your full TA read on BTC.D.',
-  halal: 'What are the best halal crypto coins to watch right now from a technical analysis perspective? Focus on the top 200 coins by market cap. Exclude all haram coins — interest (riba), lending, borrowing, gambling. Give me your top 10 halal coins with the strongest TA setups right now.',
-  btc: 'Give me a deep technical analysis of Bitcoin (BTC/USDT) right now. Cover: 1) Market structure — HH/HL or LH/LL? 2) Key S&R zones on 4H and Daily 3) EMA 20/50/200 positioning 4) RSI and MACD momentum 5) Volume confirmation 6) Chart patterns forming 7) Liquidity sweeps to watch 8) Trade idea with entry, stop loss, take profit, R:R 9) Overall bias. Pure TA only.'
+var IDEA_PROMPTS={
+  daily:'Scan the top 100-200 crypto coins by market cap today — excluding all haram coins (interest protocols, lending platforms like AAVE/Compound, gambling dApps). Give me your top 3-5 trade setups using only technical analysis. For each: current trend, key S&R levels, setup type, entry price, stop loss, take profit, R:R ratio.',
+  weekly:'Do a weekly crypto market analysis for swing trades. Top 100-200 coins excluding haram ones. What is the dominant weekly trend? Give me 3 swing trade ideas on the weekly timeframe with entry, SL, TP, R:R. Pure TA only.',
+  monthly:'Monthly macro crypto market analysis. Overall market structure on the monthly. Where is Bitcoin in its macro cycle? Give me 2-3 position trade ideas — halal coins only.',
+  btcd:'Analyse Bitcoin dominance (BTC.D) using technical analysis. Is it trending up or down? What does this mean for altcoins? BTC or alts right now?',
+  halal:'Best halal crypto coins to watch right now from a TA perspective. Top 200 by market cap. Exclude haram coins (interest, lending, borrowing, gambling). Top 10 halal coins with strongest TA setups.',
+  btc:'Deep technical analysis of Bitcoin (BTC/USDT) right now. Market structure, key S&R on 4H and Daily, EMA 20/50/200, RSI, MACD, volume, chart patterns, liquidity sweeps, trade idea with entry/SL/TP/R:R, overall bias. Pure TA only.'
 };
 
-// ═══════════════════════════════════════════════════════
-//  INIT
-// ═══════════════════════════════════════════════════════
 (function init(){
-  var grid = document.getElementById('watchlistGrid');
+  var grid=document.getElementById('watchlistGrid');
   HALAL.forEach(function(c){
-    var btn = document.createElement('button');
-    btn.className = 'coin-chip';
-    btn.innerHTML = '<div class="sym">'+c.sym+'</div><div class="name">'+c.name+'</div>';
-    btn.onclick = function(){ quickLoad(c.sym); };
+    var btn=document.createElement('button');
+    btn.className='coin-chip';
+    btn.innerHTML='<div class="sym">'+c.sym+'</div><div class="name">'+c.name+'</div>';
+    btn.onclick=function(){ quickLoad(c.sym); };
     grid.appendChild(btn);
   });
-  document.getElementById('coinInput').addEventListener('keydown', function(e){ if(e.key==='Enter') loadChart(); });
-  document.getElementById('taInput').addEventListener('keydown', function(e){ if(e.key==='Enter') loadTAGauge(); });
-  setTimeout(loadChart, 200);
+  document.getElementById('coinInput').addEventListener('keydown',function(e){if(e.key==='Enter')loadChart();});
+  document.getElementById('taInput').addEventListener('keydown',function(e){if(e.key==='Enter')loadTAGauge();});
+  setTimeout(loadChart,200);
 })();
 
-// ═══════════════════════════════════════════════════════
-//  TAB SWITCHING
-// ═══════════════════════════════════════════════════════
-function switchTab(name, btn){
-  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+function switchTab(name,btn){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
   document.getElementById('panel-'+name).classList.add('active');
-  document.querySelectorAll('.tabs .tab').forEach(function(t){ t.classList.remove('active'); });
-  var dt = document.getElementById('dt-'+name);
-  if(dt) dt.classList.add('active');
-  document.querySelectorAll('.bnav-btn').forEach(function(b){ b.classList.remove('active'); });
-  document.querySelectorAll('.bnav-btn').forEach(function(b){ if(b.dataset.panel===name) b.classList.add('active'); });
-  if(name==='scan' && !scanLoaded) loadScreener();
-  if(name==='heat' && !heatLoaded) loadHeatmap();
-  if(name==='ta' && !taLoaded) loadTAGauge();
+  document.querySelectorAll('.tabs .tab').forEach(function(t){t.classList.remove('active');});
+  var dt=document.getElementById('dt-'+name);if(dt)dt.classList.add('active');
+  document.querySelectorAll('.bnav-btn').forEach(function(b){b.classList.remove('active');});
+  document.querySelectorAll('.bnav-btn').forEach(function(b){if(b.dataset.panel===name)b.classList.add('active');});
+  if(name==='scan'&&!scanLoaded)loadScreener();
+  if(name==='heat'&&!heatLoaded)loadHeatmap();
+  if(name==='ta'&&!taLoaded)loadTAGauge();
 }
 
-// ═══════════════════════════════════════════════════════
-//  HELPERS
-// ═══════════════════════════════════════════════════════
 function setTf(btn){
-  document.querySelectorAll('.tf-btn').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
-  currentTf = btn.dataset.tf;
+  document.querySelectorAll('.tf-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');currentTf=btn.dataset.tf;
 }
 
-function setStatus(msg, type, detail){
-  var pill = document.getElementById('statusPill');
-  var txt = document.getElementById('statusText');
-  pill.textContent = msg;
-  pill.className = 'status-pill ' + (type||'loading');
-  if(txt) txt.textContent = detail||'';
+function setStatus(msg,type,detail){
+  var pill=document.getElementById('statusPill');
+  var txt=document.getElementById('statusText');
+  pill.textContent=msg;pill.className='status-pill '+(type||'loading');
+  if(txt)txt.textContent=detail||'';
 }
 
 function fmtP(p){
-  if(!p||isNaN(p)) return '—';
-  if(p>=10000) return '$'+p.toFixed(0);
-  if(p>=1000)  return '$'+p.toFixed(1);
-  if(p>=1)     return '$'+p.toFixed(4);
-  return '$'+p.toFixed(5);
+  if(!p||isNaN(p))return'—';
+  if(p>=10000)return'$'+p.toFixed(0);
+  if(p>=1000)return'$'+p.toFixed(1);
+  if(p>=1)return'$'+p.toFixed(4);
+  return'$'+p.toFixed(5);
 }
 
-function ema(src, period){
-  var k=2/(period+1), v=src[0], out=[];
-  for(var i=0;i<src.length;i++){ v=i===0?src[0]:src[i]*k+v*(1-k); out.push(v); }
+function ema(src,period){
+  var k=2/(period+1),v=src[0],out=[];
+  for(var i=0;i<src.length;i++){v=i===0?src[0]:src[i]*k+v*(1-k);out.push(v);}
   return out;
 }
 
 function getSymbol(coin){
-  return coin.toUpperCase().replace(/USDT$/,'').replace(/\/USDT$/,'') + 'USDT';
+  return coin.toUpperCase().replace(/USDT$/,'').replace(/\/USDT$/,'')+'USDT';
 }
 
-function getBinanceTf(tf){
-  var map = {'15m':'15m','1h':'1h','4h':'4h','1d':'1d'};
-  return map[tf]||'4h';
+// ─── FETCH CANDLES FROM BINANCE ───────────────────────────────────────────
+async function fetchCandles(sym,tf){
+  var interval={'15m':'15m','1h':'1h','4h':'4h','1d':'1d'}[tf]||'4h';
+  var url='https://api.binance.com/api/v3/klines?symbol='+sym+'&interval='+interval+'&limit=120';
+  var res=await fetch(url);
+  if(!res.ok)throw new Error('Symbol not found: '+sym);
+  var data=await res.json();
+  if(!Array.isArray(data)||data.length===0)throw new Error('No data returned');
+  return data.map(function(k){return{t:+k[0],o:+k[1],h:+k[2],l:+k[3],c:+k[4],v:+k[5]};});
 }
 
-// ═══════════════════════════════════════════════════════
-//  FETCH CANDLES — Binance public API (no key needed)
-// ═══════════════════════════════════════════════════════
-async function fetchCandles(sym, tf){
-  var interval = getBinanceTf(tf);
-  var url = 'https://api.binance.com/api/v3/klines?symbol='+sym+'&interval='+interval+'&limit=100';
-  var res = await fetch(url);
-  if(!res.ok) throw new Error('Symbol not found: '+sym);
-  var data = await res.json();
-  if(!Array.isArray(data)||data.length===0) throw new Error('No data returned');
-  return data.map(function(k){
-    return { t:+k[0], o:+k[1], h:+k[2], l:+k[3], c:+k[4], v:+k[5] };
-  });
-}
-
-// ═══════════════════════════════════════════════════════
-//  LOAD CHART
-// ═══════════════════════════════════════════════════════
 async function loadChart(){
-  var raw = document.getElementById('coinInput').value.trim();
-  var sym = getSymbol(raw);
+  var raw=document.getElementById('coinInput').value.trim();
+  var sym=getSymbol(raw);
   setStatus('Loading…','loading','Fetching '+sym+' candles from Binance');
   document.getElementById('chartOverlay').style.display='flex';
-  document.getElementById('patternPanel').innerHTML = '<div class="pat-card info"><div class="pat-title">Analysing…</div></div>';
-
-  try {
-    candles = await fetchCandles(sym, currentTf);
+  document.getElementById('chartOverlay').querySelector('.chart-overlay-text').textContent='Loading '+sym+'…';
+  document.getElementById('patternPanel').innerHTML='<div class="pat-card info"><div class="pat-title">Analysing…</div></div>';
+  try{
+    candles=await fetchCandles(sym,currentTf);
     document.getElementById('chartOverlay').style.display='none';
-    setStatus(sym,'ok', candles.length+' candles · '+currentTf.toUpperCase()+' · Binance');
+    setStatus(sym,'ok',candles.length+' candles · '+currentTf.toUpperCase()+' · Binance');
     renderChart(sym);
-    updateChartAskBtn(raw, currentTf);
-  } catch(e){
-    setStatus('Error','err', e.message+' — try BTC, ETH, SOL, AVAX, LINK, FET');
-    document.getElementById('chartOverlay').querySelector('.chart-overlay-text').textContent = '⚠ '+e.message;
-    document.getElementById('patternPanel').innerHTML = '<div class="pat-card bear"><div class="pat-title">Failed to load</div><div class="pat-row"><span class="pk">Tip</span><span class="pv">Try: BTC, ETH, SOL, AVAX, FET, LINK</span></div></div>';
+    updateAskBtn(raw,currentTf);
+  }catch(e){
+    setStatus('Error','err',e.message+' — try BTC, ETH, SOL, AVAX, FET');
+    document.getElementById('chartOverlay').querySelector('.chart-overlay-text').textContent='⚠ '+e.message;
+    document.getElementById('patternPanel').innerHTML='<div class="pat-card bear"><div class="pat-title">Failed to load</div><div class="pat-row"><span class="pk">Tip</span><span class="pv">Try: BTC, ETH, SOL, AVAX, FET, LINK</span></div></div>';
   }
 }
 
-function quickLoad(sym){
-  document.getElementById('coinInput').value = sym;
-  loadChart();
+function quickLoad(sym){document.getElementById('coinInput').value=sym;loadChart();}
+
+// ─── SWING POINT DETECTION (proper TA — requires BOTH sides to confirm) ──
+// lookback: how many bars each side must be lower/higher to qualify
+function findSwings(candles, lookback){
+  var n=candles.length;
+  var highs=candles.map(function(c){return c.h;});
+  var lows=candles.map(function(c){return c.l;});
+  var sh=[],sl=[];
+  // We need lookback bars confirmed on the RIGHT, so stop at n-lookback
+  for(var i=lookback;i<n-lookback;i++){
+    var isH=true,isL=true;
+    for(var j=1;j<=lookback;j++){
+      if(highs[i]<=highs[i-j]||highs[i]<=highs[i+j])isH=false;
+      if(lows[i]>=lows[i-j]||lows[i]>=lows[i+j])isL=false;
+    }
+    if(isH)sh.push({i:i,p:highs[i]});
+    if(isL)sl.push({i:i,p:lows[i]});
+  }
+  // Also check the last lookback bars with a smaller lookback (unconfirmed swings)
+  // for detecting recent patterns still forming
+  var lb2=Math.max(2,Math.floor(lookback/2));
+  for(var i=n-lookback;i<n-lb2;i++){
+    var isH=true,isL=true;
+    for(var j=1;j<=lb2;j++){
+      if(i-j>=0&&highs[i]<=highs[i-j])isH=false;
+      if(i+j<n&&highs[i]<=highs[i+j])isH=false;
+      if(i-j>=0&&lows[i]>=lows[i-j])isL=false;
+      if(i+j<n&&lows[i]>=lows[i+j])isL=false;
+    }
+    if(isH)sh.push({i:i,p:highs[i],recent:true});
+    if(isL)sl.push({i:i,p:lows[i],recent:true});
+  }
+  return{highs:sh,lows:sl};
 }
 
-// ═══════════════════════════════════════════════════════
-//  RENDER CHART + PATTERN DETECTION
-// ═══════════════════════════════════════════════════════
-function renderChart(sym){
-  var mc = document.getElementById('mainCanvas');
-  var vc = document.getElementById('volCanvas');
-  var ctx = mc.getContext('2d');
-  var vctx = vc.getContext('2d');
+// ─── SUPPORT / RESISTANCE CLUSTERING ─────────────────────────────────────
+function clusterLevels(pts,priceRange){
+  var thr=priceRange*0.015; // 1.5% clustering threshold
+  var used=new Array(pts.length).fill(false),levels=[];
+  for(var a=0;a<pts.length;a++){
+    if(used[a])continue;
+    var grp=[pts[a]];used[a]=true;
+    for(var b=a+1;b<pts.length;b++){
+      if(!used[b]&&Math.abs(pts[b].p-pts[a].p)<thr){grp.push(pts[b]);used[b]=true;}
+    }
+    if(grp.length>=2){
+      var avg=grp.reduce(function(s,v){return s+v.p;},0)/grp.length;
+      var lastIdx=Math.max.apply(null,grp.map(function(g){return g.i;}));
+      levels.push({p:avg,t:grp.length,last:lastIdx});
+    }
+  }
+  return levels.sort(function(a,b){return a.p-b.p;});
+}
 
-  // Size canvas to container
-  var boxW = mc.parentElement.clientWidth;
-  var boxH = mc.parentElement.clientHeight;
-  mc.width = boxW; mc.height = boxH;
-  vc.width = boxW; vc.height = vc.parentElement.clientHeight;
-  var W=boxW, H=boxH, VH=vc.height;
-  var PAD={t:28,r:68,b:22,l:64};
-  var CW=W-PAD.l-PAD.r, CH=H-PAD.t-PAD.b;
+// ─── LINEAR REGRESSION for trendlines ────────────────────────────────────
+function linReg(points){
+  // points = array of {x, y}
+  var n=points.length;
+  if(n<2)return null;
+  var sx=0,sy=0,sxy=0,sx2=0;
+  for(var i=0;i<n;i++){sx+=points[i].x;sy+=points[i].y;sxy+=points[i].x*points[i].y;sx2+=points[i].x*points[i].x;}
+  var slope=(n*sxy-sx*sy)/(n*sx2-sx*sx);
+  var intercept=(sy-slope*sx)/n;
+  // R-squared
+  var yMean=sy/n,ssTot=0,ssRes=0;
+  for(var i=0;i<n;i++){var yHat=slope*points[i].x+intercept;ssTot+=Math.pow(points[i].y-yMean,2);ssRes+=Math.pow(points[i].y-yHat,2);}
+  var r2=ssTot>0?1-ssRes/ssTot:0;
+  return{slope:slope,intercept:intercept,r2:r2,at:function(x){return slope*x+intercept;}};
+}
+
+// ─── PATTERN DETECTION ENGINE ─────────────────────────────────────────────
+function detectPatterns(candles,swings){
+  var n=candles.length;
+  var highs=candles.map(function(c){return c.h;});
+  var lows=candles.map(function(c){return c.l;});
+  var closes=candles.map(function(c){return c.c;});
+  var sh=swings.highs, sl=swings.lows;
+  var priceRange=Math.max.apply(null,highs)-Math.min.apply(null,lows);
+  var patterns=[];
+
+  // ── BULL FLAG ──────────────────────────────────────────────────────────
+  // 1) Strong impulse up (pole): minimum 5% rise over 3-8 candles
+  // 2) Tight consolidation (flag): price stays within 40% retracement of pole
+  // 3) Flag has slightly downward or horizontal slope
+  // 4) Volume should ideally drop during flag (we check but don't hard require)
+  for(var i=5;i<n-4;i++){
+    // Find pole: look back up to 10 bars for strong bullish move
+    for(var poleLen=3;poleLen<=10;poleLen++){
+      var ps=i-poleLen;
+      if(ps<0)continue;
+      var poleBot=Math.min.apply(null,lows.slice(ps,i+1));
+      var poleTip=highs[i];
+      var poleRise=(poleTip-poleBot)/poleBot;
+      if(poleRise<0.04)continue; // need at least 4% pole
+      // Check most of the move is genuinely bullish (close near top)
+      if(closes[i]<poleBot+poleRise*poleBot*0.5)continue;
+
+      // Flag: next 4-14 candles after pole tip
+      var flagStart=i+1;
+      var maxFlagLen=Math.min(14,n-flagStart-1);
+      if(maxFlagLen<3)continue;
+
+      // Find where flag ends — look for tight price action
+      var flagHigh=highs[flagStart],flagLow=lows[flagStart];
+      var flagEnd=flagStart;
+      for(var f=flagStart+1;f<flagStart+maxFlagLen;f++){
+        flagHigh=Math.max(flagHigh,highs[f]);
+        flagLow=Math.min(flagLow,lows[f]);
+        var flagRange=(flagHigh-flagLow)/poleTip;
+        // Flag should retrace at most 50% of pole, range at most 4%
+        var retracement=(poleTip-flagLow)/poleTip;
+        if(retracement>0.5||flagRange>0.05){break;}
+        flagEnd=f;
+      }
+      if(flagEnd-flagStart<2)continue; // flag must have at least 3 candles
+
+      // Flag trendline slope should be flat or slightly down
+      var flagCloses=closes.slice(flagStart,flagEnd+1);
+      var flagPts=flagCloses.map(function(c,idx){return{x:idx,y:c};});
+      var flagReg=linReg(flagPts);
+      if(!flagReg)continue;
+      // Flag slope: negative or slightly positive (pennant can be slightly up)
+      var slopeNorm=flagReg.slope/closes[flagStart];
+      if(slopeNorm>0.005)continue; // too strong upslope = not a flag
+
+      var breakoutTarget=flagLow+(poleTip-poleBot); // measured move
+      var score=poleRise*10 + (0.5-Math.abs(slopeNorm)*100) + flagReg.r2;
+      patterns.push({
+        type:'bull_flag',bias:'bull',
+        poleStart:ps,poleEnd:i,flagStart:flagStart,flagEnd:flagEnd,
+        flagHigh:flagHigh,flagLow:flagLow,poleBot:poleBot,poleTip:poleTip,
+        entry:flagHigh*1.001,sl:flagLow*0.995,target:breakoutTarget,
+        poleRise:poleRise,score:score
+      });
+      break; // found a flag for this pole, move on
+    }
+  }
+
+  // ── BEAR FLAG ──────────────────────────────────────────────────────────
+  for(var i=5;i<n-4;i++){
+    for(var poleLen=3;poleLen<=10;poleLen++){
+      var ps=i-poleLen;
+      if(ps<0)continue;
+      var poleTip2=lows[i];
+      var poleTop=Math.max.apply(null,highs.slice(ps,i+1));
+      var poleDrop=(poleTop-poleTip2)/poleTop;
+      if(poleDrop<0.04)continue;
+      if(closes[i]>poleTop-poleDrop*poleTop*0.5)continue;
+
+      var flagStart=i+1;
+      var maxFlagLen=Math.min(14,n-flagStart-1);
+      if(maxFlagLen<3)continue;
+
+      var flagHigh=highs[flagStart],flagLow=lows[flagStart];
+      var flagEnd=flagStart;
+      for(var f=flagStart+1;f<flagStart+maxFlagLen;f++){
+        flagHigh=Math.max(flagHigh,highs[f]);
+        flagLow=Math.min(flagLow,lows[f]);
+        var retracement=(flagHigh-poleTip2)/poleTip2;
+        var flagRange=(flagHigh-flagLow)/poleTip2;
+        if(retracement>0.5||flagRange>0.05)break;
+        flagEnd=f;
+      }
+      if(flagEnd-flagStart<2)continue;
+
+      var flagCloses=closes.slice(flagStart,flagEnd+1);
+      var flagPts=flagCloses.map(function(c,idx){return{x:idx,y:c};});
+      var flagReg=linReg(flagPts);
+      if(!flagReg)continue;
+      var slopeNorm=flagReg.slope/closes[flagStart];
+      if(slopeNorm<-0.005)continue; // flag should be flat or slightly up
+
+      var breakoutTarget=flagHigh-(poleTop-poleTip2);
+      var score=poleDrop*10+(0.5-Math.abs(slopeNorm)*100)+flagReg.r2;
+      patterns.push({
+        type:'bear_flag',bias:'bear',
+        poleStart:ps,poleEnd:i,flagStart:flagStart,flagEnd:flagEnd,
+        flagHigh:flagHigh,flagLow:flagLow,poleTop:poleTop,poleTip:poleTip2,
+        entry:flagLow*0.999,sl:flagHigh*1.005,target:breakoutTarget,
+        poleDrop:poleDrop,score:score
+      });
+      break;
+    }
+  }
+
+  // ── BULLISH PENNANT ───────────────────────────────────────────────────
+  // Like bull flag but consolidation forms converging trendlines (triangle)
+  for(var i=5;i<n-5;i++){
+    for(var poleLen=3;poleLen<=8;poleLen++){
+      var ps=i-poleLen;
+      if(ps<0)continue;
+      var poleBot=Math.min.apply(null,lows.slice(ps,i+1));
+      var poleTip=highs[i];
+      var poleRise=(poleTip-poleBot)/poleBot;
+      if(poleRise<0.05)continue;
+
+      var flagStart=i+1;
+      var flagLen=Math.min(12,n-flagStart-1);
+      if(flagLen<4)continue;
+      var flagEnd=flagStart+flagLen;
+
+      // Fit trendlines to highs and lows of the consolidation
+      var pennHighPts=[];
+      var pennLowPts=[];
+      for(var f=flagStart;f<flagEnd;f++){
+        pennHighPts.push({x:f-flagStart,y:highs[f]});
+        pennLowPts.push({x:f-flagStart,y:lows[f]});
+      }
+      var highReg=linReg(pennHighPts);
+      var lowReg=linReg(pennLowPts);
+      if(!highReg||!lowReg)continue;
+      // Pennant: highs declining, lows rising = converging
+      if(highReg.slope>=0||lowReg.slope<=0)continue;
+      // Both trendlines must fit well
+      if(highReg.r2<0.3||lowReg.r2<0.3)continue;
+      // Range must be shrinking
+      var rangeStart=highReg.at(0)-lowReg.at(0);
+      var rangeEnd=highReg.at(flagLen-1)-lowReg.at(flagLen-1);
+      if(rangeEnd>=rangeStart*0.8)continue;
+
+      var pennHigh=Math.max.apply(null,highs.slice(flagStart,flagEnd));
+      var pennLow=Math.min.apply(null,lows.slice(flagStart,flagEnd));
+      var target=pennLow+(poleTip-poleBot);
+      patterns.push({
+        type:'bull_pennant',bias:'bull',
+        poleStart:ps,poleEnd:i,flagStart:flagStart,flagEnd:flagEnd-1,
+        pennHigh:pennHigh,pennLow:pennLow,
+        highReg:highReg,lowReg:lowReg,
+        entry:pennHigh*1.001,sl:pennLow*0.995,target:target,
+        poleRise:poleRise,score:poleRise*8+highReg.r2+lowReg.r2
+      });
+      break;
+    }
+  }
+
+  // ── DOUBLE TOP ─────────────────────────────────────────────────────────
+  // Two swing highs at nearly the same price level with a trough between
+  // Key: use WICK highs, not closes. Peaks within 1.5% of each other.
+  // Neckline = lowest low between the two peaks
+  for(var a=0;a<sh.length-1;a++){
+    for(var b=a+1;b<sh.length;b++){
+      var ia=sh[a].i, ib=sh[b].i;
+      var gap=ib-ia;
+      if(gap<5||gap>40)continue; // peaks must be 5-40 bars apart
+      var priceDiff=Math.abs(sh[a].p-sh[b].p)/Math.max(sh[a].p,sh[b].p);
+      if(priceDiff>0.015)continue; // within 1.5%
+
+      // Neckline: lowest point BETWEEN the two peaks
+      var neckline=Math.min.apply(null,lows.slice(ia,ib+1));
+      var peakAvg=(sh[a].p+sh[b].p)/2;
+      // Ensure the valley is meaningful (at least 3% below peaks)
+      var valleyDepth=(peakAvg-neckline)/peakAvg;
+      if(valleyDepth<0.02)continue;
+
+      // Confirmation: price must approach or break neckline after 2nd peak
+      var postPeak=closes.slice(ib,Math.min(ib+8,n));
+      var minAfter=Math.min.apply(null,postPeak);
+      // Price should have come down at least 50% of the way to neckline
+      var confirmPct=(peakAvg-minAfter)/(peakAvg-neckline);
+      if(confirmPct<0.3)continue;
+
+      var target=neckline-(peakAvg-neckline); // measured move down
+      var score=(1-priceDiff*50)*valleyDepth*10+confirmPct;
+      patterns.push({
+        type:'double_top',bias:'bear',
+        peak1:ia,peak2:ib,
+        peak1H:sh[a].p,peak2H:sh[b].p,
+        neckline:neckline,peakAvg:peakAvg,
+        entry:neckline*0.999,sl:peakAvg*1.005,target:target,
+        score:score
+      });
+    }
+  }
+
+  // ── DOUBLE BOTTOM ──────────────────────────────────────────────────────
+  for(var a=0;a<sl.length-1;a++){
+    for(var b=a+1;b<sl.length;b++){
+      var ia=sl[a].i, ib=sl[b].i;
+      var gap=ib-ia;
+      if(gap<5||gap>40)continue;
+      var priceDiff=Math.abs(sl[a].p-sl[b].p)/Math.min(sl[a].p,sl[b].p);
+      if(priceDiff>0.015)continue;
+
+      var neckline=Math.max.apply(null,highs.slice(ia,ib+1));
+      var troughAvg=(sl[a].p+sl[b].p)/2;
+      var neckHeight=(neckline-troughAvg)/troughAvg;
+      if(neckHeight<0.02)continue;
+
+      var postTrough=closes.slice(ib,Math.min(ib+8,n));
+      var maxAfter=Math.max.apply(null,postTrough);
+      var confirmPct=(maxAfter-troughAvg)/(neckline-troughAvg);
+      if(confirmPct<0.3)continue;
+
+      var target=neckline+(neckline-troughAvg);
+      var score=(1-priceDiff*50)*neckHeight*10+confirmPct;
+      patterns.push({
+        type:'double_bottom',bias:'bull',
+        trough1:ia,trough2:ib,
+        t1L:sl[a].p,t2L:sl[b].p,
+        neckline:neckline,troughAvg:troughAvg,
+        entry:neckline*1.001,sl:troughAvg*0.995,target:target,
+        score:score
+      });
+    }
+  }
+
+  // ── ASCENDING TRIANGLE ────────────────────────────────────────────────
+  // Flat resistance (2+ touches), rising support (2+ higher lows)
+  for(var i=15;i<n-2;i++){
+    var segLen=Math.min(30,i);
+    var segStart=i-segLen;
+    var segHighs=sh.filter(function(s){return s.i>=segStart&&s.i<=i;});
+    var segLows=sl.filter(function(s){return s.i>=segStart&&s.i<=i;});
+    if(segHighs.length<2||segLows.length<2)continue;
+
+    // Check for flat top (highs within 1.5% of each other)
+    var maxH=Math.max.apply(null,segHighs.map(function(s){return s.p;}));
+    var flatTouches=segHighs.filter(function(s){return Math.abs(s.p-maxH)/maxH<0.015;});
+    if(flatTouches.length<2)continue;
+
+    // Check for rising lows (linear regression on lows should be positive)
+    var lowPts=segLows.map(function(s){return{x:s.i-segStart,y:s.p};});
+    var lowReg=linReg(lowPts);
+    if(!lowReg||lowReg.slope<=0||lowReg.r2<0.3)continue;
+
+    var target=maxH+(maxH-segLows[0].p)*0.8;
+    patterns.push({
+      type:'asc_triangle',bias:'bull',
+      segStart:segStart,segEnd:i,
+      flatLevel:maxH,flatTouches:flatTouches,
+      lowReg:lowReg,segLows:segLows,
+      entry:maxH*1.001,sl:lowReg.at(segLen)*0.995,target:target,
+      score:flatTouches.length+lowReg.r2*2
+    });
+  }
+
+  // ── DESCENDING TRIANGLE ───────────────────────────────────────────────
+  for(var i=15;i<n-2;i++){
+    var segLen=Math.min(30,i);
+    var segStart=i-segLen;
+    var segHighs=sh.filter(function(s){return s.i>=segStart&&s.i<=i;});
+    var segLows=sl.filter(function(s){return s.i>=segStart&&s.i<=i;});
+    if(segHighs.length<2||segLows.length<2)continue;
+
+    var minL=Math.min.apply(null,segLows.map(function(s){return s.p;}));
+    var flatTouches=segLows.filter(function(s){return Math.abs(s.p-minL)/minL<0.015;});
+    if(flatTouches.length<2)continue;
+
+    var highPts=segHighs.map(function(s){return{x:s.i-segStart,y:s.p};});
+    var highReg=linReg(highPts);
+    if(!highReg||highReg.slope>=0||highReg.r2<0.3)continue;
+
+    var target=minL-(segHighs[segHighs.length-1].p-minL)*0.8;
+    patterns.push({
+      type:'desc_triangle',bias:'bear',
+      segStart:segStart,segEnd:i,
+      flatLevel:minL,flatTouches:flatTouches,
+      highReg:highReg,segHighs:segHighs,
+      entry:minL*0.999,sl:highReg.at(segLen)*1.005,target:target,
+      score:flatTouches.length+highReg.r2*2
+    });
+  }
+
+  // ── DEDUPLICATE & PICK BEST (max 2 non-overlapping) ───────────────────
+  patterns.sort(function(a,b){return(b.score||0)-(a.score||0);});
+  var chosen=[];
+  patterns.forEach(function(p){
+    var ps=p.poleStart||p.peak1||p.trough1||p.segStart||0;
+    var pe=p.flagEnd||p.peak2||p.trough2||p.segEnd||ps+10;
+    var overlap=chosen.some(function(q){
+      var qs=q.poleStart||q.peak1||q.trough1||q.segStart||0;
+      var qe=q.flagEnd||q.peak2||q.trough2||q.segEnd||qs+10;
+      return ps<qe+2&&pe>qs-2;
+    });
+    if(!overlap&&chosen.length<2)chosen.push(p);
+  });
+  return chosen;
+}
+
+// ─── RENDER CHART ──────────────────────────────────────────────────────────
+function renderChart(sym){
+  var mc=document.getElementById('mainCanvas');
+  var vc=document.getElementById('volCanvas');
+  var ctx=mc.getContext('2d');
+  var vctx=vc.getContext('2d');
+
+  var boxW=mc.parentElement.clientWidth;
+  var boxH=mc.parentElement.clientHeight;
+  mc.width=boxW;mc.height=boxH;
+  vc.width=boxW;vc.height=vc.parentElement.clientHeight;
+  var W=boxW,H=boxH,VH=vc.height;
+  var PAD={t:28,r:70,b:22,l:66};
+  var CW=W-PAD.l-PAD.r,CH=H-PAD.t-PAD.b;
   var n=candles.length;
 
   var closes=candles.map(function(c){return c.c;});
   var highs=candles.map(function(c){return c.h;});
   var lows=candles.map(function(c){return c.l;});
   var vols=candles.map(function(c){return c.v;});
-  var e20=ema(closes,20), e50=ema(closes,50);
-  var maxP=Math.max.apply(null,highs)*1.013;
-  var minP=Math.min.apply(null,lows)*0.987;
+  var e20=ema(closes,20),e50=ema(closes,50);
+  var maxP=Math.max.apply(null,highs)*1.014;
+  var minP=Math.min.apply(null,lows)*0.986;
   var maxV=Math.max.apply(null,vols)||1;
+  var priceRange=maxP-minP;
 
-  function py(p){ return PAD.t + CH - (p-minP)/(maxP-minP)*CH; }
-  function cx(i){ return PAD.l + (i+0.5)*(CW/n); }
-  var bw = Math.max(1.5, CW/n*0.62);
+  function py(p){return PAD.t+CH-(p-minP)/priceRange*CH;}
+  function cx(i){return PAD.l+(i+0.5)*(CW/n);}
+  var bw=Math.max(1.5,CW/n*0.64);
 
-  // BG
-  ctx.fillStyle='#0a0d14'; ctx.fillRect(0,0,W,H);
-
-  // Grid
+  // ── BACKGROUND & GRID ──
+  ctx.fillStyle='#0a0d14';ctx.fillRect(0,0,W,H);
   for(var g=0;g<=4;g++){
     var yy=PAD.t+g*(CH/4);
-    ctx.strokeStyle='#1c2333'; ctx.lineWidth=0.5;
-    ctx.beginPath(); ctx.moveTo(PAD.l,yy); ctx.lineTo(PAD.l+CW,yy); ctx.stroke();
-    var pp=maxP-g*(maxP-minP)/4;
-    ctx.fillStyle='#4e596a'; ctx.font='10px -apple-system,sans-serif'; ctx.textAlign='right';
-    ctx.fillText(fmtP(pp).replace('$',''), PAD.l-4, yy+3);
+    ctx.strokeStyle='#1c2333';ctx.lineWidth=0.5;
+    ctx.beginPath();ctx.moveTo(PAD.l,yy);ctx.lineTo(PAD.l+CW,yy);ctx.stroke();
+    var pp=maxP-g*priceRange/4;
+    ctx.fillStyle='#4e596a';ctx.font='10px -apple-system,sans-serif';ctx.textAlign='right';
+    ctx.fillText(fmtP(pp).replace('$',''),PAD.l-4,yy+3);
   }
 
-  // ── SWING POINT DETECTION ──
-  var LB=3, swingH=[], swingL=[];
-  for(var i=LB;i<n-LB;i++){
-    var isH=true,isL=true;
-    for(var j=1;j<=LB;j++){
-      if(highs[i]<=highs[i-j]||highs[i]<=highs[i+j]) isH=false;
-      if(lows[i]>=lows[i-j]||lows[i]>=lows[i+j])  isL=false;
-    }
-    if(isH) swingH.push({i:i,p:highs[i]});
-    if(isL) swingL.push({i:i,p:lows[i]});
-  }
+  // ── SWING POINTS ──
+  var LB=Math.max(3,Math.floor(n/20)); // adaptive lookback based on # candles
+  var swings=findSwings(candles,LB);
 
-  // ── CLUSTER S/R ──
-  function cluster(pts){
-    var thr=(maxP-minP)*0.012;
-    var used=new Array(pts.length).fill(false), levels=[];
-    for(var a=0;a<pts.length;a++){
-      if(used[a]) continue;
-      var grp=[pts[a]]; used[a]=true;
-      for(var b=a+1;b<pts.length;b++){
-        if(!used[b]&&Math.abs(pts[b].p-pts[a].p)<thr){ grp.push(pts[b]); used[b]=true; }
-      }
-      if(grp.length>=2){
-        var avg=grp.reduce(function(s,v){return s+v.p;},0)/grp.length;
-        levels.push({p:avg,t:grp.length,last:Math.max.apply(null,grp.map(function(g){return g.i;}))});
-      }
-    }
-    return levels.sort(function(a,b){return a.p-b.p;});
-  }
-  var resLvl=cluster(swingH).filter(function(l){return l.p>minP&&l.p<maxP;}).slice(-3);
-  var supLvl=cluster(swingL).filter(function(l){return l.p>minP&&l.p<maxP;}).slice(0,3);
+  // ── S/R LEVELS ──
+  var resLvl=clusterLevels(swings.highs,priceRange).filter(function(l){return l.p>minP&&l.p<maxP;}).slice(-3);
+  var supLvl=clusterLevels(swings.lows,priceRange).filter(function(l){return l.p>minP&&l.p<maxP;}).slice(0,3);
 
-  // Draw S/R
-  ctx.setLineDash([4,4]);
+  ctx.setLineDash([4,4]);ctx.lineWidth=1;
   supLvl.forEach(function(l){
-    ctx.strokeStyle='#22c55e55'; ctx.lineWidth=1;
-    ctx.beginPath(); ctx.moveTo(PAD.l,py(l.p)); ctx.lineTo(PAD.l+CW,py(l.p)); ctx.stroke();
-    ctx.fillStyle='#22c55eaa'; ctx.font='9px -apple-system,sans-serif'; ctx.textAlign='left';
-    ctx.fillText('S '+fmtP(l.p), PAD.l+3, py(l.p)-3);
+    ctx.strokeStyle='#22c55e44';ctx.beginPath();ctx.moveTo(PAD.l,py(l.p));ctx.lineTo(PAD.l+CW,py(l.p));ctx.stroke();
+    ctx.fillStyle='#22c55e99';ctx.font='9px -apple-system,sans-serif';ctx.textAlign='left';
+    ctx.fillText('S '+fmtP(l.p),PAD.l+3,py(l.p)-3);
   });
   resLvl.forEach(function(l){
-    ctx.strokeStyle='#ef444455'; ctx.lineWidth=1;
-    ctx.beginPath(); ctx.moveTo(PAD.l,py(l.p)); ctx.lineTo(PAD.l+CW,py(l.p)); ctx.stroke();
-    ctx.fillStyle='#ef4444aa'; ctx.font='9px -apple-system,sans-serif'; ctx.textAlign='left';
-    ctx.fillText('R '+fmtP(l.p), PAD.l+3, py(l.p)-3);
+    ctx.strokeStyle='#ef444444';ctx.beginPath();ctx.moveTo(PAD.l,py(l.p));ctx.lineTo(PAD.l+CW,py(l.p));ctx.stroke();
+    ctx.fillStyle='#ef444499';ctx.font='9px -apple-system,sans-serif';ctx.textAlign='left';
+    ctx.fillText('R '+fmtP(l.p),PAD.l+3,py(l.p)-3);
   });
   ctx.setLineDash([]);
 
-  // ── PATTERN DETECTION ──
-  var patterns=[];
+  // ── DETECT PATTERNS ──
+  var chosen=detectPatterns(candles,swings);
 
-  // Bull flag
-  for(var i=8;i<n-6;i++){
-    var pl=5;
-    var rise=(closes[i]-closes[i-pl])/closes[i-pl];
-    if(rise>0.05){
-      var fl=Math.min(10,n-i-2);
-      var fh=Math.max.apply(null,highs.slice(i,i+fl));
-      var flo=Math.min.apply(null,lows.slice(i,i+fl));
-      var rng=(fh-flo)/fh;
-      var ret=(closes[i]-closes[i+fl])/closes[i-pl];
-      if(rng<0.065&&ret>-0.05&&ret<0.6){
-        patterns.push({type:'bull_flag',ps:i-pl,pe:i,fs:i,fe:i+fl,fh:fh,fl:flo,
-          target:closes[i+fl]+(closes[i]-closes[i-pl]),
-          entry:fh,sl:flo*0.995,score:rise-rng});
-        i+=fl+1;
-      }
-    }
-  }
-
-  // Bear flag
-  for(var i=8;i<n-6;i++){
-    var pl=5;
-    var drop=(closes[i-pl]-closes[i])/closes[i-pl];
-    if(drop>0.05){
-      var fl=Math.min(10,n-i-2);
-      var fh=Math.max.apply(null,highs.slice(i,i+fl));
-      var flo=Math.min.apply(null,lows.slice(i,i+fl));
-      var rng=(fh-flo)/flo;
-      if(rng<0.065){
-        patterns.push({type:'bear_flag',ps:i-pl,pe:i,fs:i,fe:i+fl,fh:fh,fl:flo,
-          target:closes[i+fl]-(closes[i-pl]-closes[i]),
-          entry:flo,sl:fh*1.005,score:drop-rng});
-        i+=fl+1;
-      }
-    }
-  }
-
-  // Double top
-  for(var a=0;a<swingH.length-1;a++){
-    for(var b=a+1;b<swingH.length;b++){
-      var ia=swingH[a].i,ib=swingH[b].i;
-      if(ib-ia<4||ib-ia>35) continue;
-      var diff=Math.abs(swingH[a].p-swingH[b].p)/swingH[a].p;
-      if(diff<0.018){
-        var neck=Math.min.apply(null,lows.slice(ia,ib+1));
-        var pH=(swingH[a].p+swingH[b].p)/2;
-        patterns.push({type:'double_top',p1:ia,p2:ib,neck:neck,pH:pH,
-          target:neck-(pH-neck),entry:neck*0.999,sl:pH*1.005,score:0.7-diff*15});
-      }
-    }
-  }
-
-  // Double bottom
-  for(var a=0;a<swingL.length-1;a++){
-    for(var b=a+1;b<swingL.length;b++){
-      var ia=swingL[a].i,ib=swingL[b].i;
-      if(ib-ia<4||ib-ia>35) continue;
-      var diff=Math.abs(swingL[a].p-swingL[b].p)/swingL[a].p;
-      if(diff<0.018){
-        var neck=Math.max.apply(null,highs.slice(ia,ib+1));
-        var tL=(swingL[a].p+swingL[b].p)/2;
-        patterns.push({type:'double_bottom',t1:ia,t2:ib,neck:neck,tL:tL,
-          target:neck+(neck-tL),entry:neck*1.001,sl:tL*0.995,score:0.7-diff*15});
-      }
-    }
-  }
-
-  // Ascending triangle
-  for(var i=12;i<n-4;i++){
-    var seg=highs.slice(i,Math.min(i+25,n));
-    var flatH=Math.max.apply(null,seg);
-    var touches=seg.filter(function(h){return Math.abs(h-flatH)/flatH<0.01;}).length;
-    if(touches>=3){
-      var ls=lows.slice(i,Math.min(i+25,n));
-      if(ls[ls.length-1]>ls[0]*1.015){
-        var end=Math.min(i+24,n-1);
-        patterns.push({type:'asc_tri',s:i,e:end,flat:flatH,
-          slopeStart:ls[0],slopeEnd:ls[ls.length-1],
-          target:flatH*(1+(flatH-ls[0])/flatH),entry:flatH*1.002,sl:ls[ls.length-1]*0.995,score:0.5});
-        i+=20;
-      }
-    }
-  }
-
-  // Descending triangle
-  for(var i=12;i<n-4;i++){
-    var seg=lows.slice(i,Math.min(i+25,n));
-    var flatL=Math.min.apply(null,seg);
-    var touches=seg.filter(function(l){return Math.abs(l-flatL)/flatL<0.01;}).length;
-    if(touches>=3){
-      var hs=highs.slice(i,Math.min(i+25,n));
-      if(hs[hs.length-1]<hs[0]*0.985){
-        var end=Math.min(i+24,n-1);
-        patterns.push({type:'desc_tri',s:i,e:end,flat:flatL,
-          slopeStart:hs[0],slopeEnd:hs[hs.length-1],
-          target:flatL*(1-(hs[0]-flatL)/flatL),entry:flatL*0.998,sl:hs[hs.length-1]*1.005,score:0.5});
-        i+=20;
-      }
-    }
-  }
-
-  // Pick best 2 non-overlapping
-  patterns.sort(function(a,b){return(b.score||0)-(a.score||0);});
-  var chosen=[];
-  patterns.forEach(function(p){
-    var ps=p.ps||p.p1||p.t1||p.s||0;
-    var pe=p.fe||p.p2||p.t2||p.e||ps+10;
-    var ok=!chosen.some(function(q){
-      var qs=q.ps||q.p1||q.t1||q.s||0;
-      var qe=q.fe||q.p2||q.t2||q.e||qs+10;
-      return ps<qe+3&&pe>qs-3;
-    });
-    if(ok&&chosen.length<2) chosen.push(p);
-  });
-
-  // ── DRAW PATTERNS (behind candles) ──
+  // ── DRAW PATTERN ANNOTATIONS (behind candles) ──
   chosen.forEach(function(p){
+    var projEnd=Math.min(n-1,((p.flagEnd||p.peak2||p.trough2||p.segEnd||n-1))+Math.floor(n*0.12));
 
-    if(p.type==='bull_flag'){
-      // Pole
-      ctx.strokeStyle='#22c55e'; ctx.lineWidth=2; ctx.setLineDash([]);
-      ctx.beginPath(); ctx.moveTo(cx(p.ps),py(lows[p.ps])); ctx.lineTo(cx(p.pe),py(highs[p.pe])); ctx.stroke();
-      // Flag box
-      var fx1=cx(p.fs)-bw/2, fx2=cx(p.fe)+bw/2;
-      ctx.fillStyle='#22c55e22';
-      ctx.fillRect(fx1, py(p.fh), fx2-fx1, py(p.fl)-py(p.fh));
-      ctx.strokeStyle='#22c55e'; ctx.lineWidth=1.5;
-      ctx.strokeRect(fx1, py(p.fh), fx2-fx1, py(p.fl)-py(p.fh));
-      // Label
-      ctx.fillStyle='#22c55e'; ctx.font='bold 10px -apple-system,sans-serif'; ctx.textAlign='center';
-      ctx.fillText('BULL FLAG', cx(Math.round((p.fs+p.fe)/2)), py(p.fh)-8);
+    // ── BULL FLAG / BEAR FLAG ──
+    if(p.type==='bull_flag'||p.type==='bear_flag'){
+      var isBull=p.type==='bull_flag';
+      var col=isBull?'#22c55e':'#ef4444';
+      var colDim=isBull?'#22c55e44':'#ef444444';
+      var colFill=isBull?'#22c55e1a':'#ef44441a';
+
+      // Pole line
+      ctx.strokeStyle=col;ctx.lineWidth=2;ctx.setLineDash([]);
+      ctx.beginPath();
+      if(isBull){ctx.moveTo(cx(p.poleStart),py(p.poleBot));ctx.lineTo(cx(p.poleEnd),py(p.poleTip));}
+      else{ctx.moveTo(cx(p.poleStart),py(p.poleTop));ctx.lineTo(cx(p.poleEnd),py(p.poleTip));}
+      ctx.stroke();
+
+      // Flag rectangle
+      var fx1=cx(p.flagStart)-bw/2,fx2=cx(p.flagEnd)+bw/2;
+      var fy1=py(p.flagHigh),fy2=py(p.flagLow);
+      ctx.fillStyle=colFill;ctx.fillRect(fx1,fy1,fx2-fx1,fy2-fy1);
+      ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.strokeRect(fx1,fy1,fx2-fx1,fy2-fy1);
+
+      // Label above/below flag
+      ctx.fillStyle=col;ctx.font='bold 10px -apple-system,sans-serif';ctx.textAlign='center';
+      var labelX=cx(Math.round((p.flagStart+p.flagEnd)/2));
+      ctx.fillText(isBull?'BULL FLAG':'BEAR FLAG',labelX,isBull?fy1-8:fy2+14);
+
       // Breakout projection
-      var proj=Math.min(n-1,p.fe+12);
-      if(p.target>minP&&p.target<maxP){
-        ctx.strokeStyle='#22c55e77'; ctx.lineWidth=1; ctx.setLineDash([4,3]);
-        ctx.beginPath(); ctx.moveTo(cx(p.fe),py(p.fh)); ctx.lineTo(cx(proj),py(p.target)); ctx.stroke();
-        ctx.fillStyle='#22c55e22';
-        ctx.beginPath(); ctx.moveTo(cx(p.fe),py(p.fh)); ctx.lineTo(cx(proj),py(p.target)); ctx.lineTo(cx(proj),py(p.fh)); ctx.closePath(); ctx.fill();
-        ctx.fillStyle='#22c55e'; ctx.font='9px -apple-system,sans-serif'; ctx.textAlign='left';
-        ctx.fillText('T:'+fmtP(p.target), cx(proj)+2, py(p.target)-3);
+      if(p.target>minP&&p.target<maxP*1.1){
+        ctx.strokeStyle=isBull?'#22c55e66':'#ef444466';ctx.lineWidth=1;ctx.setLineDash([5,3]);
+        var breakX=isBull?cx(p.flagEnd):cx(p.flagEnd);
+        var breakY=isBull?py(p.flagHigh):py(p.flagLow);
+        ctx.beginPath();ctx.moveTo(breakX,breakY);ctx.lineTo(cx(projEnd),py(p.target));ctx.stroke();
+        ctx.fillStyle=colFill;
+        ctx.beginPath();
+        ctx.moveTo(breakX,breakY);ctx.lineTo(cx(projEnd),py(p.target));
+        ctx.lineTo(cx(projEnd),breakY);ctx.closePath();ctx.fill();
+        ctx.setLineDash([]);
+        ctx.fillStyle=col;ctx.font='9px -apple-system,sans-serif';ctx.textAlign='left';
+        if(isBull)ctx.fillText('T:'+fmtP(p.target),cx(projEnd)+2,py(p.target)-3);
+        else ctx.fillText('T:'+fmtP(p.target),cx(projEnd)+2,py(p.target)+11);
       }
       // SL line
-      ctx.strokeStyle='#ef444466'; ctx.lineWidth=0.8; ctx.setLineDash([3,3]);
-      ctx.beginPath(); ctx.moveTo(cx(p.fs),py(p.sl)); ctx.lineTo(cx(proj),py(p.sl)); ctx.stroke();
+      ctx.strokeStyle='#ef444455';ctx.lineWidth=0.8;ctx.setLineDash([3,3]);
+      ctx.beginPath();ctx.moveTo(fx1,py(p.sl));ctx.lineTo(cx(projEnd),py(p.sl));ctx.stroke();
       ctx.setLineDash([]);
     }
 
-    if(p.type==='bear_flag'){
-      ctx.strokeStyle='#ef4444'; ctx.lineWidth=2; ctx.setLineDash([]);
-      ctx.beginPath(); ctx.moveTo(cx(p.ps),py(highs[p.ps])); ctx.lineTo(cx(p.pe),py(lows[p.pe])); ctx.stroke();
-      var fx1=cx(p.fs)-bw/2, fx2=cx(p.fe)+bw/2;
-      ctx.fillStyle='#ef444422';
-      ctx.fillRect(fx1, py(p.fh), fx2-fx1, py(p.fl)-py(p.fh));
-      ctx.strokeStyle='#ef4444'; ctx.lineWidth=1.5;
-      ctx.strokeRect(fx1, py(p.fh), fx2-fx1, py(p.fl)-py(p.fh));
-      ctx.fillStyle='#ef4444'; ctx.font='bold 10px -apple-system,sans-serif'; ctx.textAlign='center';
-      ctx.fillText('BEAR FLAG', cx(Math.round((p.fs+p.fe)/2)), py(p.fh)-8);
-      var proj=Math.min(n-1,p.fe+12);
-      if(p.target>minP&&p.target<maxP){
-        ctx.strokeStyle='#ef444477'; ctx.lineWidth=1; ctx.setLineDash([4,3]);
-        ctx.beginPath(); ctx.moveTo(cx(p.fe),py(p.fl)); ctx.lineTo(cx(proj),py(p.target)); ctx.stroke();
-        ctx.fillStyle='#ef444422';
-        ctx.beginPath(); ctx.moveTo(cx(p.fe),py(p.fl)); ctx.lineTo(cx(proj),py(p.target)); ctx.lineTo(cx(proj),py(p.fl)); ctx.closePath(); ctx.fill();
-        ctx.fillStyle='#ef4444'; ctx.font='9px -apple-system,sans-serif'; ctx.textAlign='left';
-        ctx.fillText('T:'+fmtP(p.target), cx(proj)+2, py(p.target)+11);
-      }
-      ctx.setLineDash([]);
-    }
-
-    if(p.type==='double_top'){
-      var x1=cx(p.p1), x2=cx(p.p2);
-      ctx.fillStyle='#ef444418';
-      ctx.fillRect(x1-bw, py(p.pH), x2-x1+bw*2, py(p.neck)-py(p.pH));
-      ctx.strokeStyle='#ef4444'; ctx.lineWidth=1.5; ctx.setLineDash([]);
-      ctx.beginPath(); ctx.moveTo(x1,py(p.pH)); ctx.lineTo(x1,py(p.neck)); ctx.lineTo(x2,py(p.neck)); ctx.lineTo(x2,py(p.pH)); ctx.stroke();
-      ctx.strokeStyle='#ef444488'; ctx.lineWidth=1; ctx.setLineDash([4,3]);
-      ctx.beginPath(); ctx.moveTo(PAD.l,py(p.neck)); ctx.lineTo(PAD.l+CW,py(p.neck)); ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle='#ef4444'; ctx.font='bold 10px -apple-system,sans-serif'; ctx.textAlign='center';
-      ctx.fillText('DOUBLE TOP', (x1+x2)/2, py(p.pH)-8);
-      if(p.target>minP&&p.target<maxP){
-        var proj=Math.min(n-1,p.p2+15);
-        ctx.strokeStyle='#ef444466'; ctx.lineWidth=1; ctx.setLineDash([3,3]);
-        ctx.beginPath(); ctx.moveTo(x2,py(p.neck)); ctx.lineTo(cx(proj),py(p.target)); ctx.stroke();
-        ctx.fillStyle='#ef4444'; ctx.font='9px -apple-system,sans-serif'; ctx.textAlign='left';
-        ctx.fillText('T:'+fmtP(p.target), cx(proj)+2, py(p.target)+11);
-        ctx.setLineDash([]);
-      }
-    }
-
-    if(p.type==='double_bottom'){
-      var x1=cx(p.t1), x2=cx(p.t2);
+    // ── BULL PENNANT ──
+    if(p.type==='bull_pennant'){
+      // Pole
+      ctx.strokeStyle='#22c55e';ctx.lineWidth=2;ctx.setLineDash([]);
+      ctx.beginPath();ctx.moveTo(cx(p.poleStart),py(p.poleBot));ctx.lineTo(cx(p.poleEnd),py(p.poleTip));ctx.stroke();
+      // Converging trendlines
+      var fl=p.flagEnd-p.flagStart;
+      var hx1=cx(p.flagStart),hy1=py(p.highReg.at(0));
+      var hx2=cx(p.flagEnd),hy2=py(p.highReg.at(fl));
+      var lx1=cx(p.flagStart),ly1=py(p.lowReg.at(0));
+      var lx2=cx(p.flagEnd),ly2=py(p.lowReg.at(fl));
       ctx.fillStyle='#22c55e18';
-      ctx.fillRect(x1-bw, py(p.neck), x2-x1+bw*2, py(p.tL)-py(p.neck));
-      ctx.strokeStyle='#22c55e'; ctx.lineWidth=1.5; ctx.setLineDash([]);
-      ctx.beginPath(); ctx.moveTo(x1,py(p.neck)); ctx.lineTo(x1,py(p.tL)); ctx.lineTo(x2,py(p.tL)); ctx.lineTo(x2,py(p.neck)); ctx.stroke();
-      ctx.strokeStyle='#22c55e88'; ctx.lineWidth=1; ctx.setLineDash([4,3]);
-      ctx.beginPath(); ctx.moveTo(PAD.l,py(p.neck)); ctx.lineTo(PAD.l+CW,py(p.neck)); ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle='#22c55e'; ctx.font='bold 10px -apple-system,sans-serif'; ctx.textAlign='center';
-      ctx.fillText('DOUBLE BOTTOM', (x1+x2)/2, py(p.tL)+16);
-      if(p.target>minP&&p.target<maxP){
-        var proj=Math.min(n-1,p.t2+15);
-        ctx.strokeStyle='#22c55e66'; ctx.lineWidth=1; ctx.setLineDash([3,3]);
-        ctx.beginPath(); ctx.moveTo(x2,py(p.neck)); ctx.lineTo(cx(proj),py(p.target)); ctx.stroke();
-        ctx.fillStyle='#22c55e'; ctx.font='9px -apple-system,sans-serif'; ctx.textAlign='left';
-        ctx.fillText('T:'+fmtP(p.target), cx(proj)+2, py(p.target)-3);
+      ctx.beginPath();ctx.moveTo(hx1,hy1);ctx.lineTo(hx2,hy2);ctx.lineTo(lx2,ly2);ctx.lineTo(lx1,ly1);ctx.closePath();ctx.fill();
+      ctx.strokeStyle='#22c55e';ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.moveTo(hx1,hy1);ctx.lineTo(hx2,hy2);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(lx1,ly1);ctx.lineTo(lx2,ly2);ctx.stroke();
+      ctx.fillStyle='#22c55e';ctx.font='bold 10px -apple-system,sans-serif';ctx.textAlign='center';
+      ctx.fillText('BULL PENNANT',cx(Math.round((p.flagStart+p.flagEnd)/2)),hy1-8);
+      // Target
+      if(p.target>minP&&p.target<maxP*1.1){
+        ctx.strokeStyle='#22c55e66';ctx.lineWidth=1;ctx.setLineDash([5,3]);
+        ctx.beginPath();ctx.moveTo(hx2,hy2);ctx.lineTo(cx(projEnd),py(p.target));ctx.stroke();
         ctx.setLineDash([]);
+        ctx.fillStyle='#22c55e';ctx.font='9px -apple-system,sans-serif';ctx.textAlign='left';
+        ctx.fillText('T:'+fmtP(p.target),cx(projEnd)+2,py(p.target)-3);
       }
     }
 
-    if(p.type==='asc_tri'){
-      var x1=cx(p.s), x2=cx(p.e);
-      ctx.strokeStyle='#f59e0b'; ctx.lineWidth=1.5; ctx.setLineDash([4,3]);
-      ctx.beginPath(); ctx.moveTo(x1,py(p.flat)); ctx.lineTo(x2,py(p.flat)); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(x1,py(p.slopeStart)); ctx.lineTo(x2,py(p.slopeEnd)); ctx.stroke();
-      ctx.fillStyle='#f59e0b18';
-      ctx.beginPath(); ctx.moveTo(x1,py(p.flat)); ctx.lineTo(x2,py(p.flat)); ctx.lineTo(x2,py(p.slopeEnd)); ctx.lineTo(x1,py(p.slopeStart)); ctx.closePath(); ctx.fill();
+    // ── DOUBLE TOP ──
+    if(p.type==='double_top'){
+      var x1=cx(p.peak1),x2=cx(p.peak2);
+      var yp=py(p.peakAvg),yn=py(p.neckline);
+      // Shade the pattern area
+      ctx.fillStyle='#ef444414';ctx.fillRect(x1-bw,yp,x2-x1+bw*2,yn-yp);
+      // Peak lines
+      ctx.strokeStyle='#ef4444';ctx.lineWidth=1.5;ctx.setLineDash([]);
+      ctx.beginPath();
+      ctx.moveTo(x1,py(p.peak1H));ctx.lineTo(x1,yn);
+      ctx.lineTo(x2,yn);ctx.lineTo(x2,py(p.peak2H));
+      ctx.stroke();
+      // Mark exact peak wicks
+      ctx.strokeStyle='#ef4444';ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(x1-bw,py(p.peak1H));ctx.lineTo(x1+bw,py(p.peak1H));ctx.stroke();
+      ctx.beginPath();ctx.moveTo(x2-bw,py(p.peak2H));ctx.lineTo(x2+bw,py(p.peak2H));ctx.stroke();
+      // Neckline extended
+      ctx.strokeStyle='#ef444488';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+      ctx.beginPath();ctx.moveTo(PAD.l,yn);ctx.lineTo(PAD.l+CW,yn);ctx.stroke();
       ctx.setLineDash([]);
-      ctx.fillStyle='#f59e0b'; ctx.font='bold 10px -apple-system,sans-serif'; ctx.textAlign='center';
-      ctx.fillText('ASC TRIANGLE', (x1+x2)/2, py(p.flat)-8);
+      // Label
+      ctx.fillStyle='#ef4444';ctx.font='bold 10px -apple-system,sans-serif';ctx.textAlign='center';
+      ctx.fillText('DOUBLE TOP',(x1+x2)/2,yp-8);
+      // Target projection
+      if(p.target>minP){
+        ctx.strokeStyle='#ef444466';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+        ctx.beginPath();ctx.moveTo(x2,yn);ctx.lineTo(cx(projEnd),py(p.target));ctx.stroke();
+        ctx.fillStyle='#ef444422';
+        ctx.beginPath();ctx.moveTo(x2,yn);ctx.lineTo(cx(projEnd),py(p.target));ctx.lineTo(cx(projEnd),yn);ctx.closePath();ctx.fill();
+        ctx.setLineDash([]);
+        ctx.fillStyle='#ef4444';ctx.font='9px -apple-system,sans-serif';ctx.textAlign='left';
+        ctx.fillText('T:'+fmtP(p.target),cx(projEnd)+2,py(p.target)+11);
+      }
     }
 
-    if(p.type==='desc_tri'){
-      var x1=cx(p.s), x2=cx(p.e);
-      ctx.strokeStyle='#ef4444'; ctx.lineWidth=1.5; ctx.setLineDash([4,3]);
-      ctx.beginPath(); ctx.moveTo(x1,py(p.flat)); ctx.lineTo(x2,py(p.flat)); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(x1,py(p.slopeStart)); ctx.lineTo(x2,py(p.slopeEnd)); ctx.stroke();
-      ctx.fillStyle='#ef444418';
-      ctx.beginPath(); ctx.moveTo(x1,py(p.slopeStart)); ctx.lineTo(x2,py(p.slopeEnd)); ctx.lineTo(x2,py(p.flat)); ctx.lineTo(x1,py(p.flat)); ctx.closePath(); ctx.fill();
+    // ── DOUBLE BOTTOM ──
+    if(p.type==='double_bottom'){
+      var x1=cx(p.trough1),x2=cx(p.trough2);
+      var yt=py(p.troughAvg),yn=py(p.neckline);
+      ctx.fillStyle='#22c55e14';ctx.fillRect(x1-bw,yn,x2-x1+bw*2,yt-yn);
+      ctx.strokeStyle='#22c55e';ctx.lineWidth=1.5;ctx.setLineDash([]);
+      ctx.beginPath();
+      ctx.moveTo(x1,py(p.t1L));ctx.lineTo(x1,yn);
+      ctx.lineTo(x2,yn);ctx.lineTo(x2,py(p.t2L));
+      ctx.stroke();
+      ctx.strokeStyle='#22c55e';ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(x1-bw,py(p.t1L));ctx.lineTo(x1+bw,py(p.t1L));ctx.stroke();
+      ctx.beginPath();ctx.moveTo(x2-bw,py(p.t2L));ctx.lineTo(x2+bw,py(p.t2L));ctx.stroke();
+      ctx.strokeStyle='#22c55e88';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+      ctx.beginPath();ctx.moveTo(PAD.l,yn);ctx.lineTo(PAD.l+CW,yn);ctx.stroke();
       ctx.setLineDash([]);
-      ctx.fillStyle='#ef4444'; ctx.font='bold 10px -apple-system,sans-serif'; ctx.textAlign='center';
-      ctx.fillText('DESC TRIANGLE', (x1+x2)/2, py(p.flat)+16);
+      ctx.fillStyle='#22c55e';ctx.font='bold 10px -apple-system,sans-serif';ctx.textAlign='center';
+      ctx.fillText('DOUBLE BOTTOM',(x1+x2)/2,yt+16);
+      if(p.target<maxP*1.1){
+        ctx.strokeStyle='#22c55e66';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+        ctx.beginPath();ctx.moveTo(x2,yn);ctx.lineTo(cx(projEnd),py(p.target));ctx.stroke();
+        ctx.fillStyle='#22c55e22';
+        ctx.beginPath();ctx.moveTo(x2,yn);ctx.lineTo(cx(projEnd),py(p.target));ctx.lineTo(cx(projEnd),yn);ctx.closePath();ctx.fill();
+        ctx.setLineDash([]);
+        ctx.fillStyle='#22c55e';ctx.font='9px -apple-system,sans-serif';ctx.textAlign='left';
+        ctx.fillText('T:'+fmtP(p.target),cx(projEnd)+2,py(p.target)-3);
+      }
+    }
+
+    // ── ASCENDING TRIANGLE ──
+    if(p.type==='asc_triangle'){
+      var x1=cx(p.segStart),x2=cx(p.segEnd);
+      var fl=p.segEnd-p.segStart;
+      var ly1=py(p.lowReg.at(0)),ly2=py(p.lowReg.at(fl));
+      ctx.fillStyle='#f59e0b18';
+      ctx.beginPath();ctx.moveTo(x1,py(p.flatLevel));ctx.lineTo(x2,py(p.flatLevel));ctx.lineTo(x2,ly2);ctx.lineTo(x1,ly1);ctx.closePath();ctx.fill();
+      ctx.strokeStyle='#f59e0b';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
+      ctx.beginPath();ctx.moveTo(x1,py(p.flatLevel));ctx.lineTo(x2,py(p.flatLevel));ctx.stroke();
+      ctx.beginPath();ctx.moveTo(x1,ly1);ctx.lineTo(x2,ly2);ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle='#f59e0b';ctx.font='bold 10px -apple-system,sans-serif';ctx.textAlign='center';
+      ctx.fillText('ASC TRIANGLE',(x1+x2)/2,py(p.flatLevel)-8);
+      if(p.target<maxP*1.1){
+        ctx.strokeStyle='#f59e0b66';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+        ctx.beginPath();ctx.moveTo(x2,py(p.flatLevel));ctx.lineTo(cx(projEnd),py(p.target));ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle='#f59e0b';ctx.font='9px -apple-system,sans-serif';ctx.textAlign='left';
+        ctx.fillText('T:'+fmtP(p.target),cx(projEnd)+2,py(p.target)-3);
+      }
+    }
+
+    // ── DESCENDING TRIANGLE ──
+    if(p.type==='desc_triangle'){
+      var x1=cx(p.segStart),x2=cx(p.segEnd);
+      var fl=p.segEnd-p.segStart;
+      var hy1=py(p.highReg.at(0)),hy2=py(p.highReg.at(fl));
+      ctx.fillStyle='#ef444418';
+      ctx.beginPath();ctx.moveTo(x1,hy1);ctx.lineTo(x2,hy2);ctx.lineTo(x2,py(p.flatLevel));ctx.lineTo(x1,py(p.flatLevel));ctx.closePath();ctx.fill();
+      ctx.strokeStyle='#ef4444';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
+      ctx.beginPath();ctx.moveTo(x1,py(p.flatLevel));ctx.lineTo(x2,py(p.flatLevel));ctx.stroke();
+      ctx.beginPath();ctx.moveTo(x1,hy1);ctx.lineTo(x2,hy2);ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle='#ef4444';ctx.font='bold 10px -apple-system,sans-serif';ctx.textAlign='center';
+      ctx.fillText('DESC TRIANGLE',(x1+x2)/2,hy1-8);
+      if(p.target>minP){
+        ctx.strokeStyle='#ef444466';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+        ctx.beginPath();ctx.moveTo(x2,py(p.flatLevel));ctx.lineTo(cx(projEnd),py(p.target));ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle='#ef4444';ctx.font='9px -apple-system,sans-serif';ctx.textAlign='left';
+        ctx.fillText('T:'+fmtP(p.target),cx(projEnd)+2,py(p.target)+11);
+      }
     }
   });
 
-  // ── CANDLES (on top of patterns) ──
+  // ── CANDLES (drawn ON TOP of pattern annotations) ──
   candles.forEach(function(cd,i){
-    var x=cx(i), bull=cd.c>=cd.o;
+    var x=cx(i),bull=cd.c>=cd.o;
     var col=bull?'#22c55e':'#ef4444';
-    ctx.strokeStyle=col; ctx.lineWidth=0.8;
-    ctx.beginPath(); ctx.moveTo(x,py(cd.h)); ctx.lineTo(x,py(cd.l)); ctx.stroke();
+    ctx.strokeStyle=col;ctx.lineWidth=0.8;
+    ctx.beginPath();ctx.moveTo(x,py(cd.h));ctx.lineTo(x,py(cd.l));ctx.stroke();
     ctx.fillStyle=col;
-    var top=py(Math.max(cd.o,cd.c)), bot=py(Math.min(cd.o,cd.c));
-    ctx.fillRect(x-bw/2, top, bw, Math.max(1,bot-top));
+    var top=py(Math.max(cd.o,cd.c)),bot=py(Math.min(cd.o,cd.c));
+    ctx.fillRect(x-bw/2,top,bw,Math.max(1,bot-top));
   });
 
   // ── EMAs ──
   function drawLine(arr,col,lw){
-    ctx.strokeStyle=col; ctx.lineWidth=lw; ctx.setLineDash([]); ctx.beginPath();
-    arr.forEach(function(v,i){ i===0?ctx.moveTo(cx(i),py(v)):ctx.lineTo(cx(i),py(v)); });
-    ctx.stroke();
+    ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.setLineDash([]);ctx.beginPath();
+    arr.forEach(function(v,i){i===0?ctx.moveTo(cx(i),py(v)):ctx.lineTo(cx(i),py(v));});ctx.stroke();
   }
   drawLine(e20,'#818cf8',1.5);
   drawLine(e50,'#f59e0b',1.5);
 
-  // ── CURRENT PRICE TAG ──
+  // ── CURRENT PRICE ──
   var lp=closes[n-1];
-  ctx.strokeStyle='#e8eaf022'; ctx.lineWidth=0.5; ctx.setLineDash([2,3]);
-  ctx.beginPath(); ctx.moveTo(PAD.l,py(lp)); ctx.lineTo(PAD.l+CW,py(lp)); ctx.stroke();
+  ctx.strokeStyle='#e8eaf018';ctx.lineWidth=0.5;ctx.setLineDash([2,3]);
+  ctx.beginPath();ctx.moveTo(PAD.l,py(lp));ctx.lineTo(PAD.l+CW,py(lp));ctx.stroke();
   ctx.setLineDash([]);
-  ctx.fillStyle='#22c55e'; ctx.fillRect(PAD.l+CW+1,py(lp)-10,67,20);
-  ctx.fillStyle='#fff'; ctx.font='bold 10px -apple-system,sans-serif'; ctx.textAlign='center';
-  ctx.fillText(fmtP(lp), PAD.l+CW+34, py(lp)+4);
+  ctx.fillStyle='#22c55e';ctx.fillRect(PAD.l+CW+1,py(lp)-10,69,20);
+  ctx.fillStyle='#fff';ctx.font='bold 10px -apple-system,sans-serif';ctx.textAlign='center';
+  ctx.fillText(fmtP(lp),PAD.l+CW+35,py(lp)+4);
 
   // ── DATE LABELS ──
-  ctx.fillStyle='#4e596a'; ctx.font='9px -apple-system,sans-serif'; ctx.textAlign='center';
+  ctx.fillStyle='#4e596a';ctx.font='9px -apple-system,sans-serif';ctx.textAlign='center';
   var step=Math.max(1,Math.floor(n/7));
   for(var i=0;i<n;i+=step){
     var d=new Date(candles[i].t);
-    ctx.fillText((d.getMonth()+1)+'/'+(d.getDate()), cx(i), H-5);
+    ctx.fillText((d.getMonth()+1)+'/'+(d.getDate()),cx(i),H-5);
   }
 
   // ── VOLUME ──
-  vctx.fillStyle='#0a0d14'; vctx.fillRect(0,0,W,VH);
+  vctx.fillStyle='#0a0d14';vctx.fillRect(0,0,W,VH);
   candles.forEach(function(cd,i){
-    var x=cx(i), h=Math.max(2,(cd.v/maxV)*(VH-6));
+    var x=cx(i),h=Math.max(2,(cd.v/maxV)*(VH-6));
     vctx.fillStyle=cd.c>=cd.o?'#22c55e44':'#ef444444';
-    vctx.fillRect(x-bw/2, VH-h, bw, h);
+    vctx.fillRect(x-bw/2,VH-h,bw,h);
   });
 
   // ── PATTERN PANEL ──
   var panel=document.getElementById('patternPanel');
   panel.innerHTML='';
-
   if(chosen.length===0){
-    var el=document.createElement('div');
-    el.className='pat-card info';
-    el.innerHTML='<div class="pat-title">No patterns</div><div class="pat-row"><span class="pk">Tip</span><span class="pv">Try a different TF or coin</span></div>';
+    var el=document.createElement('div');el.className='pat-card info';
+    el.innerHTML='<div class="pat-title">No patterns</div><div class="pat-row"><span class="pk">Tip</span><span class="pv">Try a different timeframe or coin</span></div>';
     panel.appendChild(el);
-  } else {
+  }else{
     chosen.forEach(function(p){
-      var isBull=p.type==='bull_flag'||p.type==='double_bottom'||p.type==='asc_tri';
-      var cls=isBull?'bull':'bear';
-      var names={bull_flag:'Bull Flag',bear_flag:'Bear Flag',double_top:'Double Top',double_bottom:'Double Bottom',asc_tri:'Ascending Triangle',desc_tri:'Descending Triangle'};
-      var entry=p.entry||0, sl=p.sl||0, tgt=p.target||0;
-      var rr=(entry&&sl&&tgt&&Math.abs(entry-sl)>0)?Math.abs(tgt-entry)/Math.abs(entry-sl):0;
-      var el=document.createElement('div');
-      el.className='pat-card '+cls;
+      var isBull=p.bias==='bull';
+      var names={bull_flag:'Bull Flag',bear_flag:'Bear Flag',bull_pennant:'Bull Pennant',double_top:'Double Top',double_bottom:'Double Bottom',asc_triangle:'Asc Triangle',desc_triangle:'Desc Triangle'};
+      var rr=(p.entry&&p.sl&&p.target&&Math.abs(p.entry-p.sl)>0)?Math.abs(p.target-p.entry)/Math.abs(p.entry-p.sl):0;
+      var el=document.createElement('div');el.className='pat-card '+(isBull?'bull':'bear');
       el.innerHTML='<div class="pat-title">'+(names[p.type]||p.type)+'</div>'+
-        '<div class="pat-row"><span class="pk">Entry</span><span class="pv a">'+fmtP(entry)+'</span></div>'+
-        '<div class="pat-row"><span class="pk">Stop loss</span><span class="pv r">'+fmtP(sl)+'</span></div>'+
-        '<div class="pat-row"><span class="pk">Target</span><span class="pv g">'+fmtP(tgt)+'</span></div>'+
+        '<div class="pat-row"><span class="pk">Entry</span><span class="pv a">'+fmtP(p.entry)+'</span></div>'+
+        '<div class="pat-row"><span class="pk">Stop loss</span><span class="pv r">'+fmtP(p.sl)+'</span></div>'+
+        '<div class="pat-row"><span class="pk">Target</span><span class="pv g">'+fmtP(p.target)+'</span></div>'+
         (rr>0?'<div class="pat-row"><span class="pk">R:R</span><span class="pv g">1 : '+rr.toFixed(1)+'</span></div>':'');
       panel.appendChild(el);
     });
   }
-
-  // S/R card
-  var src=document.createElement('div');
-  src.className='pat-card info';
+  var src=document.createElement('div');src.className='pat-card info';
   src.innerHTML='<div class="pat-title">Key levels</div>'+
     resLvl.slice().reverse().map(function(l){return '<div class="pat-row"><span class="pk">Resistance</span><span class="pv r">'+fmtP(l.p)+'</span></div>';}).join('')+
     supLvl.map(function(l){return '<div class="pat-row"><span class="pk">Support</span><span class="pv g">'+fmtP(l.p)+'</span></div>';}).join('');
   panel.appendChild(src);
 }
 
-// ═══════════════════════════════════════════════════════
-//  ASK CLAUDE BUTTON — pre-fill prompt
-// ═══════════════════════════════════════════════════════
-function updateChartAskBtn(coin, tf){
+// ─── ASK CLAUDE BTN ───────────────────────────────────────────────────────
+function updateAskBtn(coin,tf){
   var tfMap={'15m':'15-minute','1h':'1-hour','4h':'4-hour','1d':'Daily'};
-  var tfText=tfMap[tf]||tf.toUpperCase();
-  var prompt='I am looking at the '+coin.toUpperCase()+'/USDT chart on the '+tfText+' timeframe with 20 EMA, 50 EMA, RSI, MACD, and volume. Give me a deep technical analysis: 1) Market structure — HH/HL or LH/LL? 2) Key support and resistance zones 3) EMA trend bias 4) RSI and MACD momentum 5) Volume confirmation 6) Chart patterns 7) Liquidity sweeps to watch 8) Trade idea with entry, stop loss, target and R:R 9) Overall bias. Pure TA only.';
-  document.getElementById('chartAskBtn').href = CLAUDE+'?q='+encodeURIComponent(prompt);
+  var prompt='I am looking at '+coin.toUpperCase()+'/USDT on the '+(tfMap[tf]||tf)+' timeframe. Give me a deep technical analysis: 1) Market structure (HH/HL or LH/LL) 2) Key S&R zones 3) EMA 20/50 bias 4) RSI and MACD momentum 5) Volume 6) Chart patterns forming 7) Liquidity zones 8) Trade idea with entry, SL, TP, R:R 9) Overall bias. Pure TA only.';
+  document.getElementById('chartAskBtn').href=CLAUDE+'?q='+encodeURIComponent(prompt);
 }
 
-// ═══════════════════════════════════════════════════════
-//  TA GAUGE (TradingView widget)
-// ═══════════════════════════════════════════════════════
+// ─── TA GAUGE ────────────────────────────────────────────────────────────
 function loadTAGauge(){
   var coin=document.getElementById('taInput').value.trim().toUpperCase().replace('USDT','');
   var tf=document.getElementById('taTfSel').value;
   var sym='BINANCE:'+coin+'USDT';
-  var box=document.getElementById('taBox');
-  box.innerHTML='';
-  var wrap=document.createElement('div');
-  wrap.style.height='100%';wrap.style.width='100%';
-  var inner=document.createElement('div');
-  inner.className='tradingview-widget-container__widget';
-  inner.style.height='100%';inner.style.width='100%';
+  var box=document.getElementById('taBox');box.innerHTML='';
+  var wrap=document.createElement('div');wrap.style.height='100%';wrap.style.width='100%';
+  var inner=document.createElement('div');inner.className='tradingview-widget-container__widget';inner.style.height='100%';inner.style.width='100%';
   wrap.appendChild(inner);
-  var s=document.createElement('script');
-  s.src='https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js';
-  s.async=true;
+  var s=document.createElement('script');s.src='https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js';s.async=true;
   s.innerHTML=JSON.stringify({interval:tf,width:'100%',height:'100%',symbol:sym,showIntervalTabs:true,displayMode:'multiple',locale:'en',colorTheme:'dark',isTransparent:false});
   wrap.appendChild(s);box.appendChild(wrap);
-  var prompt='I have the TradingView TA gauge open for '+coin+'/USDT on the '+tf+' timeframe showing oscillator and moving average signals. Give me a professional analysis of what the indicators are showing — RSI, MACD, Stochastic, CCI, moving averages. Is the signal strong or mixed? Give me a trade idea with entry, SL, target, R:R. Pure TA only.';
+  var prompt='I have the TradingView TA gauge for '+coin+'/USDT on the '+tf+' timeframe. Analyse the oscillators (RSI, MACD, Stochastic, CCI) and moving averages. Is the signal strong or mixed? Give me a trade idea with entry, SL, target, R:R. Pure TA only.';
   document.getElementById('taAskBtn').href=CLAUDE+'?q='+encodeURIComponent(prompt);
   taLoaded=true;
 }
 
-// ═══════════════════════════════════════════════════════
-//  SCREENER + HEATMAP
-// ═══════════════════════════════════════════════════════
+// ─── SCREENER & HEATMAP ───────────────────────────────────────────────────
 function loadScreener(){
-  if(scanLoaded)return;
+  if(scanLoaded)return;scanLoaded=true;
   var box=document.getElementById('scanBox');box.innerHTML='';
   var wrap=document.createElement('div');wrap.style.height='100%';wrap.style.width='100%';
-  var inner=document.createElement('div');inner.className='tradingview-widget-container__widget';inner.style.height='100%';inner.style.width='100%';
-  wrap.appendChild(inner);
+  var inner=document.createElement('div');inner.className='tradingview-widget-container__widget';inner.style.height='100%';inner.style.width='100%';wrap.appendChild(inner);
   var s=document.createElement('script');s.src='https://s3.tradingview.com/external-embedding/embed-widget-screener.js';s.async=true;
   s.innerHTML=JSON.stringify({width:'100%',height:'100%',defaultColumn:'overview',defaultScreen:'top_gainers',market:'crypto',showToolbar:true,colorTheme:'dark',locale:'en',isTransparent:false});
-  wrap.appendChild(s);box.appendChild(wrap);scanLoaded=true;
+  wrap.appendChild(s);box.appendChild(wrap);
 }
-
 function loadHeatmap(){
-  if(heatLoaded)return;
+  if(heatLoaded)return;heatLoaded=true;
   var box=document.getElementById('heatBox');box.innerHTML='';
   var wrap=document.createElement('div');wrap.style.height='100%';wrap.style.width='100%';
-  var inner=document.createElement('div');inner.className='tradingview-widget-container__widget';inner.style.height='100%';inner.style.width='100%';
-  wrap.appendChild(inner);
+  var inner=document.createElement('div');inner.className='tradingview-widget-container__widget';inner.style.height='100%';inner.style.width='100%';wrap.appendChild(inner);
   var s=document.createElement('script');s.src='https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js';s.async=true;
   s.innerHTML=JSON.stringify({dataSource:'Crypto',blockSize:'market_cap_calc',blockColor:'change',locale:'en',colorTheme:'dark',hasTopBar:true,isDataSetEnabled:true,isZoomEnabled:true,hasSymbolTooltip:true,isMonoSize:false,width:'100%',height:'100%'});
-  wrap.appendChild(s);box.appendChild(wrap);heatLoaded=true;
+  wrap.appendChild(s);box.appendChild(wrap);
 }
 
-// ═══════════════════════════════════════════════════════
-//  TRADE IDEAS
-// ═══════════════════════════════════════════════════════
+// ─── TRADE IDEAS ──────────────────────────────────────────────────────────
 function openIdea(type){
   var prompt;
   if(type==='deep'||type==='entry'){
     var coin=document.getElementById('ideaCoin').value.trim().toUpperCase();
     var tf=document.getElementById('ideaTf').value;
     if(!coin){alert('Please enter a coin ticker first');return;}
-    if(type==='deep'){
-      prompt='Give me a deep technical analysis of '+coin+'/USDT on the '+tf+' timeframe. Cover: 1) Market structure 2) Key S&R zones 3) EMA 20/50/200 bias 4) RSI & MACD momentum 5) Volume 6) Chart patterns 7) Liquidity sweeps 8) Trade idea with entry, SL, TP, R:R 9) Overall bias. Pure TA only.';
-    } else {
-      prompt='Find the best entry setup on '+coin+'/USDT on the '+tf+' timeframe. Give me: exact entry level, stop loss with reasoning, take profit target(s), R:R ratio, what would invalidate the setup, and what confirms it. Pure technical analysis only.';
-    }
-  } else {
-    prompt=IDEA_PROMPTS[type];
-  }
-  if(prompt) window.open(CLAUDE+'?q='+encodeURIComponent(prompt),'_blank');
+    prompt=type==='deep'
+      ?'Deep technical analysis of '+coin+'/USDT on the '+tf+' timeframe. Market structure, S&R, EMA 20/50/200, RSI, MACD, volume, chart patterns, liquidity, trade idea with entry/SL/TP/R:R, overall bias. Pure TA only.'
+      :'Best entry setup on '+coin+'/USDT on the '+tf+' timeframe. Exact entry, stop loss, take profit(s), R:R, what invalidates the setup, what confirms it. Pure TA only.';
+  }else{prompt=IDEA_PROMPTS[type];}
+  if(prompt)window.open(CLAUDE+'?q='+encodeURIComponent(prompt),'_blank');
 }
 </script>
 </body>
