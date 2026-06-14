@@ -402,287 +402,275 @@ function detectPatterns(cdls, swings){
   var sh=swings.sh, sl=swings.sl;
   var patterns=[];
 
-  // ── BULL FLAG ───────────────────────────────────────────────────────────
-  // Pole: strong bullish impulse. Flag: consolidation 3-15 bars, retraces
-  // < 50% of pole, range < 8% (relaxed for daily). Measured move = pole height added to flag low.
-  for(var i=4;i<n-3;i++){
-    for(var pl=3;pl<=12;pl++){
-      var ps=i-pl;if(ps<1)continue;
-      // Pole: lowest low to highest high in the range, with bullish close
-      var pBot=Math.min.apply(null,L.slice(ps,i+1));
-      var pTip=H[i]; // tip = the high of the last pole candle
-      var pRise=(pTip-pBot)/pBot;
-      if(pRise<0.05)continue; // at least 5% pole
-      // Confirm bullish: close above midpoint of pole
-      if(C[i]<pBot+pRise*pBot*0.4)continue;
-      // Confirm most candles in pole are green
-      var bullCount=0;
-      for(var k=ps;k<=i;k++){if(C[k]>O[k])bullCount++;}
-      if(bullCount<Math.ceil(pl*0.5))continue;
+  // Recency bonus: patterns ending closer to the right edge score higher
+  // This ensures we surface what's forming NOW, not historical patterns
+  function recencyBonus(endIdx){
+    return (endIdx/n)*4; // up to +4 points for patterns ending at the last bar
+  }
 
-      // Flag: scan forward 3-15 bars
-      var fs=i+1;
+  // ── BULL FLAG ────────────────────────────────────────────────────────────
+  // Scan from recent to past so we find newest first
+  for(var i=n-4;i>=4;i--){
+    for(var pl=3;pl<=14;pl++){
+      var ps=i-pl;if(ps<1)continue;
+      // Pole: find the real bottom and top of the move
+      var pBot=Math.min.apply(null,L.slice(ps,i+1));
+      var pBotIdx=ps;for(var k=ps;k<=i;k++){if(L[k]<=pBot)pBotIdx=k;}
+      var pTip=Math.max.apply(null,H.slice(pBotIdx,i+1));
+      var pTipIdx=pBotIdx;for(var k=pBotIdx;k<=i;k++){if(H[k]>=pTip)pTipIdx=k;}
+      var poleHeight=pTip-pBot;
+      var pRise=poleHeight/pBot;
+      if(pRise<0.06)continue; // minimum 6% pole
+      // Pole must be mostly bullish candles
+      var bullCount=0;
+      for(var k=pBotIdx;k<=pTipIdx;k++){if(C[k]>=O[k])bullCount++;}
+      var poleLen=pTipIdx-pBotIdx+1;
+      if(poleLen>1&&bullCount<poleLen*0.5)continue;
+
+      // Flag starts after the pole tip
+      var fs=pTipIdx+1;
       if(fs>=n-1)continue;
-      var maxFL=Math.min(15,n-fs-1);
+      var maxFL=Math.min(16,n-fs-1);
       var fH=H[fs],fL=L[fs],fEnd=fs;
 
       for(var f=fs+1;f<fs+maxFL;f++){
         fH=Math.max(fH,H[f]);fL=Math.min(fL,L[f]);
-        // Flag range as % of pole height (not of price — key fix)
-        var fRange=(fH-fL)/(pTip-pBot);
-        // Retracement of pole
-        var fRetr=(pTip-fL)/(pTip-pBot);
-        if(fRange>0.55||fRetr>0.6)break;
+        var fRange=(fH-fL)/poleHeight;       // flag range as % of pole
+        var fRetr=(pTip-fL)/poleHeight;      // retracement of pole
+        if(fRange>0.6||fRetr>0.65)break;
         fEnd=f;
       }
-      if(fEnd-fs<2)continue;
+      if(fEnd-fs<2)continue; // need at least 3 flag candles
 
-      // Flag slope: should be flat or slightly down (downward channel)
-      var fCloses=C.slice(fs,fEnd+1);
-      var fPts=fCloses.map(function(c,idx){return{x:idx,y:c};});
+      // Flag slope: flat or slightly down
+      var fPts=C.slice(fs,fEnd+1).map(function(c,idx){return{x:idx,y:c};});
       var fReg=linReg(fPts);
       if(!fReg)continue;
       var slopeNorm=fReg.slope/C[fs];
-      if(slopeNorm>0.006)continue; // too steep upward = not a flag
+      if(slopeNorm>0.008)continue; // reject strong upward slope
 
-      // Volume: ideally declining in flag (soft check, don't hard filter)
-      var poleAvgVol=V.slice(ps,i+1).reduce(function(a,b){return a+b;},0)/(i-ps+1);
-      var flagAvgVol=V.slice(fs,fEnd+1).reduce(function(a,b){return a+b;},0)/(fEnd-fs+1);
-      var volScore=poleAvgVol>0?flagAvgVol/poleAvgVol:1;
-
-      // Target = flag low + pole height (CORRECT measured move)
-      var poleHeight=pTip-pBot;
+      // Target = flag low + full pole height (measured move)
       var target=fL+poleHeight;
-      var score=pRise*8+(1-volScore)*2+(0.5-Math.max(0,slopeNorm)*50)+fReg.r2;
+      // Good R:R requires target meaningfully above entry
+      var rr=(target-fH*1.001)/Math.max(0.0001,fH*1.001-fL*0.995);
+      var score=pRise*6+recencyBonus(fEnd)+(rr>1?rr:0)+(1-Math.max(0,slopeNorm*80));
       patterns.push({
         type:'bull_flag',bias:'bull',
-        poleStart:ps,poleEnd:i,flagStart:fs,flagEnd:fEnd,
+        poleStart:pBotIdx,poleEnd:pTipIdx,flagStart:fs,flagEnd:fEnd,
         flagHigh:fH,flagLow:fL,poleBot:pBot,poleTip:pTip,poleHeight:poleHeight,
-        entry:fH*1.001,sl:fL*0.995,target:target,
-        score:score
+        entry:fH*1.001,sl:fL*0.995,target:target,score:score
       });
-      break;
+      break; // found best flag for this area
     }
   }
 
-  // ── BEAR FLAG ───────────────────────────────────────────────────────────
-  // Pole: strong bearish impulse. Flag: consolidation, retraces < 50% of pole.
-  // Target = flag HIGH minus pole height (CORRECT measured move).
-  for(var i=4;i<n-3;i++){
-    for(var pl=3;pl<=12;pl++){
+  // ── BEAR FLAG ────────────────────────────────────────────────────────────
+  for(var i=n-4;i>=4;i--){
+    for(var pl=3;pl<=14;pl++){
       var ps=i-pl;if(ps<1)continue;
       var pTop=Math.max.apply(null,H.slice(ps,i+1));
-      var pTip=L[i]; // tip = low of last pole candle
-      var pDrop=(pTop-pTip)/pTop;
-      if(pDrop<0.05)continue;
-      if(C[i]>pTop-pDrop*pTop*0.4)continue;
-      // Confirm mostly bearish candles
+      var pTopIdx=ps;for(var k=ps;k<=i;k++){if(H[k]>=pTop)pTopIdx=k;}
+      var pTip=Math.min.apply(null,L.slice(pTopIdx,i+1));
+      var pTipIdx=pTopIdx;for(var k=pTopIdx;k<=i;k++){if(L[k]<=pTip)pTipIdx=k;}
+      var poleHeight=pTop-pTip;
+      var pDrop=poleHeight/pTop;
+      if(pDrop<0.06)continue;
       var bearCount=0;
-      for(var k=ps;k<=i;k++){if(C[k]<O[k])bearCount++;}
-      if(bearCount<Math.ceil(pl*0.5))continue;
+      for(var k=pTopIdx;k<=pTipIdx;k++){if(C[k]<=O[k])bearCount++;}
+      var poleLen=pTipIdx-pTopIdx+1;
+      if(poleLen>1&&bearCount<poleLen*0.5)continue;
 
-      var fs=i+1;if(fs>=n-1)continue;
-      var maxFL=Math.min(15,n-fs-1);
+      var fs=pTipIdx+1;if(fs>=n-1)continue;
+      var maxFL=Math.min(16,n-fs-1);
       var fH=H[fs],fL=L[fs],fEnd=fs;
 
       for(var f=fs+1;f<fs+maxFL;f++){
         fH=Math.max(fH,H[f]);fL=Math.min(fL,L[f]);
-        var fRange=(fH-fL)/(pTop-pTip);
-        var fRetr=(fH-pTip)/(pTop-pTip);
-        if(fRange>0.55||fRetr>0.6)break;
+        var fRange=(fH-fL)/poleHeight;
+        var fRetr=(fH-pTip)/poleHeight;
+        if(fRange>0.6||fRetr>0.65)break;
         fEnd=f;
       }
       if(fEnd-fs<2)continue;
 
-      var fCloses=C.slice(fs,fEnd+1);
-      var fPts=fCloses.map(function(c,idx){return{x:idx,y:c};});
+      var fPts=C.slice(fs,fEnd+1).map(function(c,idx){return{x:idx,y:c};});
       var fReg=linReg(fPts);
       if(!fReg)continue;
       var slopeNorm=fReg.slope/C[fs];
-      if(slopeNorm<-0.006)continue; // too steep downward = not a flag
+      if(slopeNorm<-0.008)continue; // reject strong downward slope
 
-      var poleHeight=pTop-pTip;
-      // CORRECT target: flag HIGH minus pole height
+      // Target = flag high - full pole height
       var target=fH-poleHeight;
-      var score=pDrop*8+fReg.r2;
+      var rr=(fL*0.999-target)/Math.max(0.0001,fH*1.005-fL*0.999);
+      var score=pDrop*6+recencyBonus(fEnd)+(rr>1?rr:0);
       patterns.push({
         type:'bear_flag',bias:'bear',
-        poleStart:ps,poleEnd:i,flagStart:fs,flagEnd:fEnd,
+        poleStart:pTopIdx,poleEnd:pTipIdx,flagStart:fs,flagEnd:fEnd,
         flagHigh:fH,flagLow:fL,poleTop:pTop,poleTip:pTip,poleHeight:poleHeight,
-        entry:fL*0.999,sl:fH*1.005,target:target,
-        score:score
+        entry:fL*0.999,sl:fH*1.005,target:target,score:score
       });
       break;
     }
   }
 
-  // ── BULL PENNANT ────────────────────────────────────────────────────────
-  // Like bull flag but consolidation = converging trendlines (symmetrical triangle)
-  for(var i=4;i<n-4;i++){
+  // ── BULL PENNANT ─────────────────────────────────────────────────────────
+  for(var i=n-5;i>=4;i--){
     for(var pl=3;pl<=10;pl++){
       var ps=i-pl;if(ps<1)continue;
       var pBot=Math.min.apply(null,L.slice(ps,i+1));
-      var pTip=H[i];
-      var pRise=(pTip-pBot)/pBot;
-      if(pRise<0.06)continue;
-      if(C[i]<pBot+pRise*pBot*0.4)continue;
+      var pBotIdx=ps;for(var k=ps;k<=i;k++){if(L[k]<=pBot)pBotIdx=k;}
+      var pTip=Math.max.apply(null,H.slice(pBotIdx,i+1));
+      var pTipIdx=pBotIdx;for(var k=pBotIdx;k<=i;k++){if(H[k]>=pTip)pTipIdx=k;}
+      var poleHeight=pTip-pBot;
+      if(poleHeight/pBot<0.07)continue;
 
-      var fs=i+1;if(fs>=n-3)continue;
-      var maxFL=Math.min(15,n-fs-1);if(maxFL<4)continue;
+      var fs=pTipIdx+1;if(fs>=n-3)continue;
+      var maxFL=Math.min(14,n-fs-1);if(maxFL<4)continue;
       var fEnd=Math.min(fs+maxFL-1,n-2);
 
-      // Need convergence: declining highs + rising lows
-      var pennHPts=[],pennLPts=[];
-      for(var f=fs;f<=fEnd;f++){
-        pennHPts.push({x:f-fs,y:H[f]});
-        pennLPts.push({x:f-fs,y:L[f]});
-      }
-      var hReg=linReg(pennHPts),lReg=linReg(pennLPts);
+      var hPts=[],lPts2=[];
+      for(var f=fs;f<=fEnd;f++){hPts.push({x:f-fs,y:H[f]});lPts2.push({x:f-fs,y:L[f]});}
+      var hReg=linReg(hPts),lReg=linReg(lPts2);
       if(!hReg||!lReg)continue;
-      if(hReg.slope>=0||lReg.slope<=0)continue; // must converge
-      if(hReg.r2<0.35||lReg.r2<0.35)continue;
+      if(hReg.slope>=0||lReg.slope<=0)continue;
+      if(hReg.r2<0.4||lReg.r2<0.4)continue;
+      // Convergence: range must shrink by at least 20%
+      var rStart=hReg.at(0)-lReg.at(0);
+      var rEnd=hReg.at(fEnd-fs)-lReg.at(fEnd-fs);
+      if(rEnd>rStart*0.8)continue;
 
-      var poleHeight=pTip-pBot;
-      var target=Math.max.apply(null,H.slice(fs,fEnd+1))+poleHeight*0.8;
+      var pennLow=Math.min.apply(null,L.slice(fs,fEnd+1));
+      var target=pennLow+poleHeight;
+      var rr=(target-(pTip*1.001))/Math.max(0.0001,(pTip*1.001)-pennLow*0.995);
+      var score=poleHeight/pBot*6+recencyBonus(fEnd)+hReg.r2+lReg.r2+(rr>1?rr:0);
       patterns.push({
         type:'bull_pennant',bias:'bull',
-        poleStart:ps,poleEnd:i,flagStart:fs,flagEnd:fEnd,
+        poleStart:pBotIdx,poleEnd:pTipIdx,flagStart:fs,flagEnd:fEnd,
         poleBot:pBot,poleTip:pTip,poleHeight:poleHeight,
-        hReg:hReg,lReg:lReg,
-        entry:H[i]*1.001,sl:Math.min.apply(null,L.slice(fs,fEnd+1))*0.995,target:target,
-        score:pRise*6+hReg.r2+lReg.r2
+        hReg:hReg,lReg:lReg,pennLow:pennLow,
+        entry:pTip*1.001,sl:pennLow*0.995,target:target,score:score
       });
       break;
     }
   }
 
-  // ── DOUBLE TOP ──────────────────────────────────────────────────────────
-  // Two swing HIGHS (wick) within 1.5% of each other, separated by 5-40 bars
-  // Neckline = lowest LOW between the two peaks
-  // Confirmation: price must drop at least 30% toward neckline after peak2
-  // Target = neckline MINUS the height from neckline to peaks (measured move)
-  for(var a=0;a<sh.length-1;a++){
-    for(var b=a+1;b<sh.length;b++){
-      var ia=sh[a].i,ib=sh[b].i,gap=ib-ia;
-      if(gap<5||gap>45)continue;
-      var pDiff=Math.abs(sh[a].p-sh[b].p)/Math.max(sh[a].p,sh[b].p);
-      if(pDiff>0.015)continue; // within 1.5%
-
-      // Neckline: lowest point BETWEEN the peaks (use lows, not closes)
+  // ── DOUBLE TOP ───────────────────────────────────────────────────────────
+  // Use swing highs. Peaks within 2% of each other. Gap 5-50 bars.
+  // Neckline = lowest low between peaks. Depth >= 2%. Confirm >= 25% drop after peak2.
+  for(var a=sh.length-1;a>=1;a--){
+    for(var b=a-1;b>=0;b--){
+      var ib=sh[a].i,ia=sh[b].i,gap=ib-ia;
+      if(gap<5||gap>50)continue;
+      var pDiff=Math.abs(sh[b].p-sh[a].p)/Math.max(sh[b].p,sh[a].p);
+      if(pDiff>0.02)continue;
       var neck=Math.min.apply(null,L.slice(ia,ib+1));
       var peakH=(sh[a].p+sh[b].p)/2;
-      // Valley must be meaningful depth
       var depth=(peakH-neck)/peakH;
-      if(depth<0.025)continue;
-
-      // Confirmation after 2nd peak
-      var postEnd=Math.min(ib+10,n);
+      if(depth<0.02)continue;
+      var postEnd=Math.min(ib+12,n);
       var minAfter=Math.min.apply(null,C.slice(ib,postEnd));
       var confirm=(peakH-minAfter)/(peakH-neck);
-      if(confirm<0.25)continue;
-
-      // CORRECT target: neckline minus (peak - neckline)
+      if(confirm<0.2)continue;
       var target=neck-(peakH-neck);
-      var score=(1-pDiff*40)*depth*8+confirm;
+      var rr=(neck*0.999-target)/Math.max(0.0001,peakH*1.008-neck*0.999);
+      var score=(1-pDiff*30)*depth*6+confirm+recencyBonus(ib)+(rr>1?rr:0);
       patterns.push({
         type:'double_top',bias:'bear',
-        peak1:ia,peak2:ib,
-        p1H:sh[a].p,p2H:sh[b].p,
+        peak1:ia,peak2:ib,p1H:sh[b].p,p2H:sh[a].p,
         neck:neck,peakH:peakH,
-        entry:neck*0.999,sl:peakH*1.008,target:target,
-        score:score
+        entry:neck*0.999,sl:peakH*1.008,target:target,score:score
       });
+      break; // take most recent pair only
     }
   }
 
-  // ── DOUBLE BOTTOM ───────────────────────────────────────────────────────
-  for(var a=0;a<sl.length-1;a++){
-    for(var b=a+1;b<sl.length;b++){
-      var ia=sl[a].i,ib=sl[b].i,gap=ib-ia;
-      if(gap<5||gap>45)continue;
-      var pDiff=Math.abs(sl[a].p-sl[b].p)/Math.min(sl[a].p,sl[b].p);
-      if(pDiff>0.015)continue;
-
+  // ── DOUBLE BOTTOM ────────────────────────────────────────────────────────
+  for(var a=sl.length-1;a>=1;a--){
+    for(var b=a-1;b>=0;b--){
+      var ib=sl[a].i,ia=sl[b].i,gap=ib-ia;
+      if(gap<5||gap>50)continue;
+      var pDiff=Math.abs(sl[b].p-sl[a].p)/Math.min(sl[b].p,sl[a].p);
+      if(pDiff>0.02)continue;
       var neck=Math.max.apply(null,H.slice(ia,ib+1));
       var troughL=(sl[a].p+sl[b].p)/2;
       var height=(neck-troughL)/troughL;
-      if(height<0.025)continue;
-
-      var postEnd=Math.min(ib+10,n);
+      if(height<0.02)continue;
+      var postEnd=Math.min(ib+12,n);
       var maxAfter=Math.max.apply(null,C.slice(ib,postEnd));
       var confirm=(maxAfter-troughL)/(neck-troughL);
-      if(confirm<0.25)continue;
-
-      // CORRECT target: neckline plus (neckline - trough)
+      if(confirm<0.2)continue;
       var target=neck+(neck-troughL);
-      var score=(1-pDiff*40)*height*8+confirm;
+      var rr=(target-neck*1.001)/Math.max(0.0001,neck*1.001-troughL*0.995);
+      var score=(1-pDiff*30)*height*6+confirm+recencyBonus(ib)+(rr>1?rr:0);
       patterns.push({
         type:'double_bottom',bias:'bull',
-        t1:ia,t2:ib,
-        t1L:sl[a].p,t2L:sl[b].p,
+        t1:ia,t2:ib,t1L:sl[b].p,t2L:sl[a].p,
         neck:neck,troughL:troughL,
-        entry:neck*1.001,sl:troughL*0.995,target:target,
-        score:score
+        entry:neck*1.001,sl:troughL*0.995,target:target,score:score
       });
+      break;
     }
   }
 
-  // ── ASCENDING TRIANGLE ──────────────────────────────────────────────────
-  // Flat top (2+ swing highs within 1.5%) + rising lows (linreg slope > 0)
+  // ── ASCENDING TRIANGLE ───────────────────────────────────────────────────
+  // Only scan the most recent 30-bar window to avoid covering huge historical areas
+  // Require >=3 swing high touches near flat level AND rising lows
   if(sh.length>=2&&sl.length>=2){
-    for(var ei=20;ei<n;ei++){
-      var si=Math.max(0,ei-35);
-      var segSH=sh.filter(function(s){return s.i>=si&&s.i<=ei;});
-      var segSL=sl.filter(function(s){return s.i>=si&&s.i<=ei;});
-      if(segSH.length<2||segSL.length<2)continue;
-
+    var ei=n-1;
+    var si=Math.max(0,ei-30);
+    var segSH=sh.filter(function(s){return s.i>=si&&s.i<=ei;});
+    var segSL=sl.filter(function(s){return s.i>=si&&s.i<=ei;});
+    if(segSH.length>=2&&segSL.length>=2){
       var maxH=Math.max.apply(null,segSH.map(function(s){return s.p;}));
-      var flat=segSH.filter(function(s){return Math.abs(s.p-maxH)/maxH<0.015;});
-      if(flat.length<2)continue;
-
-      var lPts=segSL.map(function(s){return{x:s.i-si,y:s.p};});
-      var lReg=linReg(lPts);
-      if(!lReg||lReg.slope<=0||lReg.r2<0.35)continue;
-
-      var patHeight=maxH-segSL[0].p;
-      patterns.push({
-        type:'asc_triangle',bias:'bull',
-        segStart:si,segEnd:ei,
-        flatLevel:maxH,lReg:lReg,segSL:segSL,
-        entry:maxH*1.002,sl:lReg.at(ei-si)*0.995,target:maxH+patHeight*0.85,
-        score:flat.length*1.5+lReg.r2*2
-      });
+      var flat=segSH.filter(function(s){return Math.abs(s.p-maxH)/maxH<0.018;});
+      if(flat.length>=2){
+        var lPts=segSL.map(function(s){return{x:s.i-si,y:s.p};});
+        var lReg=linReg(lPts);
+        if(lReg&&lReg.slope>0&&lReg.r2>0.4){
+          var lowestSL=segSL[0].p;
+          var patHeight=maxH-lowestSL;
+          var target=maxH+patHeight*0.9;
+          var rr=(target-maxH*1.002)/Math.max(0.0001,maxH*1.002-lReg.at(ei-si)*0.995);
+          patterns.push({
+            type:'asc_triangle',bias:'bull',segStart:si,segEnd:ei,
+            flatLevel:maxH,lReg:lReg,segSL:segSL,
+            entry:maxH*1.002,sl:lReg.at(ei-si)*0.995,target:target,
+            score:flat.length*2+lReg.r2*2+recencyBonus(ei)+(rr>1?rr:0)
+          });
+        }
+      }
     }
   }
 
-  // ── DESCENDING TRIANGLE ─────────────────────────────────────────────────
+  // ── DESCENDING TRIANGLE ──────────────────────────────────────────────────
   if(sh.length>=2&&sl.length>=2){
-    for(var ei=20;ei<n;ei++){
-      var si=Math.max(0,ei-35);
-      var segSH=sh.filter(function(s){return s.i>=si&&s.i<=ei;});
-      var segSL=sl.filter(function(s){return s.i>=si&&s.i<=ei;});
-      if(segSH.length<2||segSL.length<2)continue;
-
+    var ei=n-1;
+    var si=Math.max(0,ei-30);
+    var segSH=sh.filter(function(s){return s.i>=si&&s.i<=ei;});
+    var segSL=sl.filter(function(s){return s.i>=si&&s.i<=ei;});
+    if(segSH.length>=2&&segSL.length>=2){
       var minL=Math.min.apply(null,segSL.map(function(s){return s.p;}));
-      var flat=segSL.filter(function(s){return Math.abs(s.p-minL)/minL<0.015;});
-      if(flat.length<2)continue;
-
-      var hPts=segSH.map(function(s){return{x:s.i-si,y:s.p};});
-      var hReg=linReg(hPts);
-      if(!hReg||hReg.slope>=0||hReg.r2<0.35)continue;
-
-      var patHeight=segSH[segSH.length-1].p-minL;
-      patterns.push({
-        type:'desc_triangle',bias:'bear',
-        segStart:si,segEnd:ei,
-        flatLevel:minL,hReg:hReg,segSH:segSH,
-        entry:minL*0.998,sl:hReg.at(ei-si)*1.005,target:minL-patHeight*0.85,
-        score:flat.length*1.5+hReg.r2*2
-      });
+      var flat=segSL.filter(function(s){return Math.abs(s.p-minL)/minL<0.018;});
+      if(flat.length>=2){
+        var hPts=segSH.map(function(s){return{x:s.i-si,y:s.p};});
+        var hReg=linReg(hPts);
+        if(hReg&&hReg.slope<0&&hReg.r2>0.4){
+          var highestSH=segSH[segSH.length-1].p;
+          var patHeight=highestSH-minL;
+          var target=minL-patHeight*0.9;
+          var rr=(minL*0.998-target)/Math.max(0.0001,hReg.at(ei-si)*1.005-minL*0.998);
+          patterns.push({
+            type:'desc_triangle',bias:'bear',segStart:si,segEnd:ei,
+            flatLevel:minL,hReg:hReg,segSH:segSH,
+            entry:minL*0.998,sl:hReg.at(ei-si)*1.005,target:target,
+            score:flat.length*2+hReg.r2*2+recencyBonus(ei)+(rr>1?rr:0)
+          });
+        }
+      }
     }
   }
 
-  // ── DEDUPLICATE: pick best 2 non-overlapping ────────────────────────────
+  // ── PICK BEST 2 NON-OVERLAPPING, SORTED BY SCORE (recency-weighted) ─────
   patterns.sort(function(a,b){return(b.score||0)-(a.score||0);});
   var chosen=[];
   patterns.forEach(function(p){
@@ -691,7 +679,7 @@ function detectPatterns(cdls, swings){
     var overlap=chosen.some(function(q){
       var qs=q.poleStart!=null?q.poleStart:q.peak1!=null?q.peak1:q.t1!=null?q.t1:q.segStart||0;
       var qe=q.flagEnd!=null?q.flagEnd:q.peak2!=null?q.peak2:q.t2!=null?q.t2:q.segEnd||qs+10;
-      return ps<qe+2&&pe>qs-2;
+      return ps<qe+3&&pe>qs-3;
     });
     if(!overlap&&chosen.length<2)chosen.push(p);
   });
