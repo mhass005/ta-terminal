@@ -871,14 +871,15 @@ function detectPatterns(cdls, swings){
 
       // Target = flag low + full pole height (measured move)
       var target=fL+poleHeight;
-      // Good R:R requires target meaningfully above entry
-      var rr=(target-fH*1.001)/Math.max(0.0001,fH*1.001-fL*0.995);
-      var score=pRise*6+recencyBonus(fEnd)+(rr>1?rr:0)+(1-Math.max(0,slopeNorm*80));
+      var entry=fH*1.001, sl=fL*0.995;
+      var rr=(target-entry)/Math.max(0.0001,entry-sl);
+      if(rr<1.3)continue; // HARD REJECT: minimum 1:1.3 R:R required
+      var score=pRise*6+recencyBonus(fEnd)+rr+(1-Math.max(0,slopeNorm*80));
       patterns.push({
         type:'bull_flag',bias:'bull',
         poleStart:pBotIdx,poleEnd:pTipIdx,flagStart:fs,flagEnd:fEnd,
         flagHigh:fH,flagLow:fL,poleBot:pBot,poleTip:pTip,poleHeight:poleHeight,
-        entry:fH*1.001,sl:fL*0.995,target:target,score:score
+        entry:entry,sl:sl,target:target,score:score
       });
       break; // found best flag for this area
     }
@@ -921,13 +922,15 @@ function detectPatterns(cdls, swings){
 
       // Target = flag high - full pole height
       var target=fH-poleHeight;
-      var rr=(fL*0.999-target)/Math.max(0.0001,fH*1.005-fL*0.999);
-      var score=pDrop*6+recencyBonus(fEnd)+(rr>1?rr:0);
+      var entry=fL*0.999, sl=fH*1.005;
+      var rr=(entry-target)/Math.max(0.0001,sl-entry);
+      if(rr<1.3)continue; // HARD REJECT: minimum 1:1.3 R:R required
+      var score=pDrop*6+recencyBonus(fEnd)+rr;
       patterns.push({
         type:'bear_flag',bias:'bear',
         poleStart:pTopIdx,poleEnd:pTipIdx,flagStart:fs,flagEnd:fEnd,
         flagHigh:fH,flagLow:fL,poleTop:pTop,poleTip:pTip,poleHeight:poleHeight,
-        entry:fL*0.999,sl:fH*1.005,target:target,score:score
+        entry:entry,sl:sl,target:target,score:score
       });
       break;
     }
@@ -961,14 +964,16 @@ function detectPatterns(cdls, swings){
 
       var pennLow=Math.min.apply(null,L.slice(fs,fEnd+1));
       var target=pennLow+poleHeight;
-      var rr=(target-(pTip*1.001))/Math.max(0.0001,(pTip*1.001)-pennLow*0.995);
-      var score=poleHeight/pBot*6+recencyBonus(fEnd)+hReg.r2+lReg.r2+(rr>1?rr:0);
+      var entry=pTip*1.001, sl=pennLow*0.995;
+      var rr=(target-entry)/Math.max(0.0001,entry-sl);
+      if(rr<1.3)continue;
+      var score=poleHeight/pBot*6+recencyBonus(fEnd)+hReg.r2+lReg.r2+rr;
       patterns.push({
         type:'bull_pennant',bias:'bull',
         poleStart:pBotIdx,poleEnd:pTipIdx,flagStart:fs,flagEnd:fEnd,
         poleBot:pBot,poleTip:pTip,poleHeight:poleHeight,
         hReg:hReg,lReg:lReg,pennLow:pennLow,
-        entry:pTip*1.001,sl:pennLow*0.995,target:target,score:score
+        entry:entry,sl:sl,target:target,score:score
       });
       break;
     }
@@ -982,9 +987,9 @@ function detectPatterns(cdls, swings){
       var ib=sh[a].i,ia=sh[b].i,gap=ib-ia;
       if(gap<5||gap>50)continue;
       var pDiff=Math.abs(sh[b].p-sh[a].p)/Math.max(sh[b].p,sh[a].p);
-      if(pDiff>0.02)continue;
+      if(pDiff>0.012)continue; // tightened from 2% to 1.2% so peaks visually align
       var neck=Math.min.apply(null,L.slice(ia,ib+1));
-      var peakH=(sh[a].p+sh[b].p)/2;
+      var peakH=Math.max(sh[a].p,sh[b].p); // use the higher of the two as reference
       var depth=(peakH-neck)/peakH;
       if(depth<0.02)continue;
       var postEnd=Math.min(ib+12,n);
@@ -992,13 +997,15 @@ function detectPatterns(cdls, swings){
       var confirm=(peakH-minAfter)/(peakH-neck);
       if(confirm<0.2)continue;
       var target=neck-(peakH-neck);
-      var rr=(neck*0.999-target)/Math.max(0.0001,peakH*1.008-neck*0.999);
-      var score=(1-pDiff*30)*depth*6+confirm+recencyBonus(ib)+(rr>1?rr:0);
+      var entry=neck*0.999, sl=peakH*1.008;
+      var rr=(entry-target)/Math.max(0.0001,sl-entry);
+      if(rr<1.3)continue; // HARD REJECT
+      var score=(1-pDiff*50)*depth*6+confirm+recencyBonus(ib)+rr;
       patterns.push({
         type:'double_top',bias:'bear',
         peak1:ia,peak2:ib,p1H:sh[b].p,p2H:sh[a].p,
         neck:neck,peakH:peakH,
-        entry:neck*0.999,sl:peakH*1.008,target:target,score:score
+        entry:entry,sl:sl,target:target,score:score
       });
       break; // take most recent pair only
     }
@@ -1010,9 +1017,9 @@ function detectPatterns(cdls, swings){
       var ib=sl[a].i,ia=sl[b].i,gap=ib-ia;
       if(gap<5||gap>50)continue;
       var pDiff=Math.abs(sl[b].p-sl[a].p)/Math.min(sl[b].p,sl[a].p);
-      if(pDiff>0.02)continue;
+      if(pDiff>0.012)continue; // tightened from 2% to 1.2%
       var neck=Math.max.apply(null,H.slice(ia,ib+1));
-      var troughL=(sl[a].p+sl[b].p)/2;
+      var troughL=Math.min(sl[a].p,sl[b].p); // use the lower of the two as reference
       var height=(neck-troughL)/troughL;
       if(height<0.02)continue;
       var postEnd=Math.min(ib+12,n);
@@ -1020,13 +1027,15 @@ function detectPatterns(cdls, swings){
       var confirm=(maxAfter-troughL)/(neck-troughL);
       if(confirm<0.2)continue;
       var target=neck+(neck-troughL);
-      var rr=(target-neck*1.001)/Math.max(0.0001,neck*1.001-troughL*0.995);
-      var score=(1-pDiff*30)*height*6+confirm+recencyBonus(ib)+(rr>1?rr:0);
+      var entry=neck*1.001, sl2=troughL*0.995;
+      var rr=(target-entry)/Math.max(0.0001,entry-sl2);
+      if(rr<1.3)continue; // HARD REJECT
+      var score=(1-pDiff*50)*height*6+confirm+recencyBonus(ib)+rr;
       patterns.push({
         type:'double_bottom',bias:'bull',
         t1:ia,t2:ib,t1L:sl[b].p,t2L:sl[a].p,
         neck:neck,troughL:troughL,
-        entry:neck*1.001,sl:troughL*0.995,target:target,score:score
+        entry:entry,sl:sl2,target:target,score:score
       });
       break;
     }
@@ -1050,13 +1059,16 @@ function detectPatterns(cdls, swings){
           var lowestSL=segSL[0].p;
           var patHeight=maxH-lowestSL;
           var target=maxH+patHeight*0.9;
-          var rr=(target-maxH*1.002)/Math.max(0.0001,maxH*1.002-lReg.at(ei-si)*0.995);
+          var entry=maxH*1.002, sl=lReg.at(ei-si)*0.995;
+          var rr=(target-entry)/Math.max(0.0001,entry-sl);
+          if(rr<1.3){/* skip */}else{
           patterns.push({
             type:'asc_triangle',bias:'bull',segStart:si,segEnd:ei,
             flatLevel:maxH,lReg:lReg,segSL:segSL,
-            entry:maxH*1.002,sl:lReg.at(ei-si)*0.995,target:target,
-            score:flat.length*2+lReg.r2*2+recencyBonus(ei)+(rr>1?rr:0)
+            entry:entry,sl:sl,target:target,
+            score:flat.length*2+lReg.r2*2+recencyBonus(ei)+rr
           });
+          }
         }
       }
     }
@@ -1078,13 +1090,16 @@ function detectPatterns(cdls, swings){
           var highestSH=segSH[segSH.length-1].p;
           var patHeight=highestSH-minL;
           var target=minL-patHeight*0.9;
-          var rr=(minL*0.998-target)/Math.max(0.0001,hReg.at(ei-si)*1.005-minL*0.998);
+          var entry=minL*0.998, sl=hReg.at(ei-si)*1.005;
+          var rr=(entry-target)/Math.max(0.0001,sl-entry);
+          if(rr<1.3){/* skip */}else{
           patterns.push({
             type:'desc_triangle',bias:'bear',segStart:si,segEnd:ei,
             flatLevel:minL,hReg:hReg,segSH:segSH,
-            entry:minL*0.998,sl:hReg.at(ei-si)*1.005,target:target,
-            score:flat.length*2+hReg.r2*2+recencyBonus(ei)+(rr>1?rr:0)
+            entry:entry,sl:sl,target:target,
+            score:flat.length*2+hReg.r2*2+recencyBonus(ei)+rr
           });
+          }
         }
       }
     }
